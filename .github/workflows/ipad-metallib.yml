@@ -47,6 +47,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The runner image's default Xcode is not necessarily the newest one it
+      # ships, and the build needs a `metal` that understands
+      # `-fmetal-math-mode=safe` / `-fmetal-math-fp32-functions=precise` (Xcode
+      # 16 and later). Xcode 15.4, the macos-14 default, rejects both flags --
+      # and dropping them is not an option: under fast math `exp` and the fma
+      # path drift past the float32 bar, and `spk_math_probe` then refuses to
+      # start the engine on device.
+      - name: Select the newest Xcode
+        run: |
+          set -euo pipefail
+          ls -d /Applications/Xcode*.app || true
+          newest=$(ls -d /Applications/Xcode*.app | sort | tail -1)
+          echo "using $newest"
+          sudo xcode-select -s "$newest"
+          xcodebuild -version
+          xcrun -sdk iphoneos metal --version
+
       - name: Toolchain
         run: |
           xcodebuild -version
