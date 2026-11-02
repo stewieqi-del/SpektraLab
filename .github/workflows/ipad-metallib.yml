@@ -68,6 +68,35 @@ jobs:
           xcodebuild -version
           xcrun -sdk iphoneos metal --version
 
+      # Temporary: the 32023.883 Metal toolchain on this image aborts (SIGTRAP,
+      # exit 133) on `blur.metal`. These compiles separate "the file" from "the
+      # math flags" from "the iOS 17 target", and print the crash log so the
+      # report names the frame instead of the symptom.
+      - name: Diagnose blur.metal
+        continue-on-error: true
+        run: |
+          set -u
+          shader=engine/src/shaders/blur.metal
+          for flags in \
+            "-fmetal-math-mode=safe -fmetal-math-fp32-functions=precise" \
+            "-fmetal-math-mode=safe" \
+            "-fmetal-math-fp32-functions=precise" \
+            ""
+          do
+            for target in "-target arm64-apple-ios17.0" "-target arm64-apple-ios26.0" ""; do
+              printf '== flags [%s] target [%s]: ' "$flags" "$target"
+              # shellcheck disable=SC2086
+              if xcrun -sdk iphoneos metal $flags $target -c "$shader" -o /tmp/probe.air 2>/tmp/probe.err; then
+                echo ok
+              else
+                echo "FAIL ($(grep -m1 -o 'error:.*' /tmp/probe.err || tail -1 /tmp/probe.err))"
+              fi
+            done
+          done
+          echo "== newest crash log =="
+          crash=$(ls -t "$HOME"/Library/Logs/DiagnosticReports/metal_*.crash 2>/dev/null | head -1)
+          if [ -n "${crash:-}" ]; then sed -n '1,50p' "$crash"; else echo "none"; fi
+
       # The engine kernels keep the safe-math pair: under fast math `exp` and
       # the fma path drift past the float32 bar silently, and `spk_math_probe`
       # then refuses to start the engine.
