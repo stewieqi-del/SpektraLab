@@ -1,0 +1,16 @@
+name: runner probe
+
+# Temporary diagnostic: is the account able to start a hosted runner at all?
+# Kept out of the release path; delete once the macOS job has run once.
+on:
+  push:
+    branches: [ipad-port]
+    paths:
+      - ".github/workflows/probe.yml"
+  workflow_dispatch:
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - run: uname -a && echo "ubuntu runner reached"
