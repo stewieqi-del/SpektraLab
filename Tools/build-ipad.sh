@@ -14,10 +14,12 @@
 #
 #  The two Metal libraries are inputs here, not products: `metal` and
 #  `metallib` are Mach-O binaries that ship inside Xcode and cannot execute
-#  under WSL ("Exec format error"). They are produced once on a Mac and staged
-#  into `modern_UI/Spektrafilm/SpektraPadResources/`; this script refuses to
-#  start without them, because the failure they cause at runtime (a black
-#  canvas, or "no engine") is much further from the cause.
+#  under WSL ("Exec format error"). They are produced once -- by the
+#  `ipad-metallib` workflow on a macOS runner, or on a Mac -- and staged into
+#  `modern_UI/Spektrafilm/SpektraPadResources/` (`Tools/fetch-metallibs.sh`
+#  downloads the published pair). This script refuses to start without them,
+#  because the failure they cause at runtime (a black canvas, or "no engine")
+#  is much further from the cause.
 
 set -euo pipefail
 
@@ -72,14 +74,20 @@ if [ "$missing" -ne 0 ]; then
     cat >&2 <<'EOF'
 
 The Metal libraries are built with Apple's compiler, which does not run here.
-On a Mac, once:
+Two ways to get them, both once:
 
-    engine/build.sh ipad        # -> engine/resources, then staged by its bundle step
-    Tools/build-metallib.sh     # -> SpektraPadResources/default.metallib (canvas)
-    engine/build.sh ipad        # stages engine resources into SpektraPadResources/
+  * no Mac: let the repository's own workflow build them (it runs on a macOS
+    runner for every push to `ipad-port`), then fetch the published assets:
 
-then sync this tree to Windows again. Everything else in this build is
-cross-compiled here: Swift, the C++20 engine, linking and signing.
+        bash Tools/fetch-metallibs.sh
+
+  * on a Mac:
+
+        engine/build.sh ipad        # -> engine/resources, then staged by its bundle step
+        Tools/build-metallib.sh     # -> SpektraPadResources/default.metallib (canvas)
+
+Everything else in this build is cross-compiled here: Swift, the C++20 engine,
+linking and signing.
 EOF
     exit 1
 fi

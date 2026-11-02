@@ -139,18 +139,29 @@ What the two entry points are:
 **Metal is the one step this host cannot do.** The Darwin Swift SDK ships a
 whole `Xcode.app`, but its `metal` and `actool` are Mach-O and fail with
 `Exec format error` under Linux — so the two libraries are inputs, not products,
-on this path:
+on this path. The repository builds them itself, on a macOS runner:
 
 ```sh
-# Once, on any Mac (or a macOS CI runner), then copy the two files over:
+# Once (and again whenever a shader changes): .github/workflows/ipad-metallib.yml
+# runs on macos-15 for a push to `ipad-port` and publishes two flat release
+# assets on the `ipad-metallib` tag.
+wsl -e bash -lc 'Tools/fetch-metallibs.sh'   # → SpektraPadResources/, magic-checked
+```
+
+Or, on a Mac, the same two files by hand:
+
+```sh
 engine/build.sh ipad                       # → SpektraPadResources/Resources/engine/spektrafilm.metallib
 Tools/build-metallib.sh                    # → SpektraPadResources/default.metallib
 ```
 
-`Tools/build-ipad.sh` refuses to start without both, and names those two
-commands. The engine's library keeps the safe/fast math split described above;
-the canvas one is compiled fast because the Mac target sets `MTL_FAST_MATH = YES`
-for it.
+`Tools/build-ipad.sh` refuses to start without both, and names those routes. The
+engine's library keeps the safe/fast math split described above; the canvas one
+is compiled fast because the Mac target sets `MTL_FAST_MATH = YES` for it.
+
+Both libraries carry a platform stamp (`PlatformMajor: 17`), which is why the
+Mac's own `spektrafilm.metallib` cannot be reused: it loads on macOS and fails
+at `newLibraryWithURL` on iOS.
 
 ## Deliberate gaps
 
