@@ -32,13 +32,12 @@ permissions:
 
 jobs:
   metallib:
-    # `macos-15` sat queued for half an hour on this account while an
-    # `ubuntu-latest` probe job on the same fork started in under a minute, so
-    # the bottleneck is macOS capacity rather than the workflow. `macos-14` is
-    # the pool free/public accounts actually get; its Xcode (16.x, iOS 18 SDK)
-    # still compiles the `-target arm64-apple-ios17.0` libraries below, which is
-    # what the `PlatformMajor: 17` stamp check verifies.
-    runs-on: macos-14
+    # `macos-14` starts immediately here but ships Xcode 15.4/16.2 at best, and
+    # its `metal` cannot compile the engine's kernels at all: 15.4 rejects
+    # `-fmetal-math-mode=safe` and 16.2 crashes on `blur.metal` (exit 133).
+    # macOS 26 is the first image with Xcode 26 -- the version the project is
+    # built and measured with (README: Xcode 26.6).
+    runs-on: macos-26
     env:
       TAG: ipad-metallib
       ENGINE_LIB: modern_UI/Spektrafilm/SpektraPadResources/Resources/engine/spektrafilm.metallib
