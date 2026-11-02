@@ -68,34 +68,56 @@ jobs:
           xcodebuild -version
           xcrun -sdk iphoneos metal --version
 
-      # Temporary: the 32023.883 Metal toolchain on this image aborts (SIGTRAP,
-      # exit 133) on `blur.metal`. These compiles separate "the file" from "the
-      # math flags" from "the iOS 17 target", and print the crash log so the
-      # report names the frame instead of the symptom.
+      # Temporary. The first probe showed the math flags are irrelevant: every
+      # flag combination aborts with exit 133 for `-target arm64-apple-ios17.0`
+      # *and* for ios26.0, and every one succeeds with no `-target` at all
+      # (which means the host's own macOS triple). So the crash is the iOS
+      # target, not the flags. This probe splits the remaining two: a trivial
+      # kernel for iOS (is the toolchain broken for iOS at all?) and the real
+      # shader at each optimization level (is it a codegen pass on this file?).
       - name: Diagnose blur.metal
         continue-on-error: true
         run: |
           set -u
           shader=engine/src/shaders/blur.metal
-          for flags in \
-            "-fmetal-math-mode=safe -fmetal-math-fp32-functions=precise" \
-            "-fmetal-math-mode=safe" \
-            "-fmetal-math-fp32-functions=precise" \
-            ""
-          do
-            for target in "-target arm64-apple-ios17.0" "-target arm64-apple-ios26.0" ""; do
-              printf '== flags [%s] target [%s]: ' "$flags" "$target"
-              # shellcheck disable=SC2086
-              if xcrun -sdk iphoneos metal $flags $target -c "$shader" -o /tmp/probe.air 2>/tmp/probe.err; then
-                echo ok
-              else
-                echo "FAIL ($(grep -m1 -o 'error:.*' /tmp/probe.err || tail -1 /tmp/probe.err))"
-              fi
-            done
+          triv=/tmp/trivial.metal
+          cat > "$triv" <<'EOF'
+          #include <metal_stdlib>
+          using namespace metal;
+          kernel void probe_only(device float *o [[buffer(0)]],
+                                 uint i [[thread_position_in_grid]]) {
+              o[i] = o[i] * 2.0f + 1.0f;
+          }
+          EOF
+
+          attempt() {
+            label=$1; shift
+            printf '== %-28s: ' "$label"
+            if "$@" >/dev/null 2>/tmp/probe.err; then
+              echo ok
+            else
+              echo "FAIL ($(grep -m1 -o 'error:.*' /tmp/probe.err || tail -1 /tmp/probe.err))"
+            fi
+          }
+
+          attempt "trivial ios17" xcrun -sdk iphoneos metal -target arm64-apple-ios17.0 -c "$triv" -o /tmp/t.air
+          attempt "trivial no target" xcrun -sdk iphoneos metal -c "$triv" -o /tmp/t.air
+          for opt in -O0 -O1 -O2 -O3; do
+            attempt "blur ios17 $opt" xcrun -sdk iphoneos metal "$opt" \
+              -fmetal-math-mode=safe -fmetal-math-fp32-functions=precise \
+              -target arm64-apple-ios17.0 -c "$shader" -o /tmp/b.air
           done
-          echo "== newest crash log =="
-          crash=$(ls -t "$HOME"/Library/Logs/DiagnosticReports/metal_*.crash 2>/dev/null | head -1)
-          if [ -n "${crash:-}" ]; then sed -n '1,50p' "$crash"; else echo "none"; fi
+          attempt "blur air64-ios17" xcrun -sdk iphoneos metal \
+            -fmetal-math-mode=safe -target air64-apple-ios17.0 -c "$shader" -o /tmp/b.air
+          attempt "blur ios18" xcrun -sdk iphoneos metal \
+            -target arm64-apple-ios18.0 -c "$shader" -o /tmp/b.air
+          attempt "blur ios17 +O0 -g0" xcrun -sdk iphoneos metal -O0 -g0 \
+            -target arm64-apple-ios17.0 -c "$shader" -o /tmp/b.air
+
+          echo "== crash reports =="
+          ls -t "$HOME"/Library/Logs/DiagnosticReports 2>/dev/null | head -5 || true
+          crash=$(ls -t "$HOME"/Library/Logs/DiagnosticReports/metal_* 2>/dev/null | head -1)
+          if [ -n "${crash:-}" ]; then echo "-- $crash"; sed -n '1,40p' "$crash"; else echo "none"; fi
 
       # The engine kernels keep the safe-math pair: under fast math `exp` and
       # the fma path drift past the float32 bar silently, and `spk_math_probe`
