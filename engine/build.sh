@@ -182,7 +182,15 @@ bundle_resources() {
 # too). The Pad has no long tail of older devices to carry, so the floor is the
 # Swift runtime the shared model is written against.
 IOS_MIN=17.0
-ios_target=(-target "arm64-apple-ios$IOS_MIN")
+# `air64`, not `arm64`: the Metal frontend in the downloadable toolchain that
+# Xcode 26.6 uses (metalfe 32023.883) aborts with SIGTRAP on ANY shader whose
+# target triple names `arm64` for an Apple mobile platform -- a five-line
+# trivial kernel crashes at -O0 as surely as `blur.metal` does -- while the
+# same triple spelled `air64` compiles and links, which is also the spelling
+# the driver prints for its own default target (`air64-apple-darwin…`). The
+# arch name is the AIR intermediate's, and it is what the macOS build has
+# always been using implicitly; only iOS has to name it.
+ios_target=(-target "air64-apple-ios$IOS_MIN")
 
 check_ios_metallib_target() {
   local major

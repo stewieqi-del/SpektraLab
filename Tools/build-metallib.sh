@@ -34,7 +34,10 @@ ios_min="${SPEKTRAFILM_IOS_MIN:-17.0}"
 # `engine/build.sh ipad` -- that asymmetry is deliberate and documented in
 # AGENTS.md ("do not drop -fmetal-math-mode=safe").
 math_flags=(-fmetal-math-mode=fast -fmetal-math-fp32-functions=fast)
-target=(-target "arm64-apple-ios$ios_min")
+# `air64`, not `arm64` -- see the note in `engine/build.sh`: the Metal frontend
+# in Xcode 26.6's downloadable toolchain aborts on any target triple that names
+# `arm64` for iOS, and compiles the same shader when it names `air64`.
+target=(-target "air64-apple-ios$ios_min")
 
 if [ ! -f "$source_file" ]; then
     echo "build-metallib.sh: missing $source_file" >&2
