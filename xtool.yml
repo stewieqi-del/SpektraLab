@@ -1,0 +1,24 @@
+# xtool.yml -- how xtool assembles SpektraPad.app from the SwiftPM package.
+#
+# `product` names the SwiftPM library whose @main struct becomes the app; the
+# bundle id is deliberately not the Mac's (`com.hanze.filmify`) because a
+# device install of the pad build must not overwrite the Mac app's identity in
+# any provisioning profile.
+#
+# `resources:` entries are copied into the *app bundle root* under their own
+# basename, which is why the staged directory is named `Resources`: the engine
+# looks for `Resources/engine/spektrafilm_constants.bin` and the canvas shader
+# loader asks `Bundle(for: Renderer.self)` for `default.metallib`, i.e. the
+# bundle root. Both were verified against `EngineClient.defaultResources()` and
+# `Canvas/Renderer.swift:428`.
+version: 1
+bundleID: com.hanze.filmify.pad
+product: SpekPad
+infoPath: modern_UI/Spektrafilm/SpektraPad/Info-xtool.plist
+entitlementsPath: modern_UI/Spektrafilm/SpektraPad/SpektraPad.entitlements
+resources:
+  - modern_UI/Spektrafilm/SpektraPadResources/Resources
+  # The canvas shader ships as the bundle-root `default.metallib` that
+  # `Renderer` asks for. Staged beside the engine resources by
+  # `Tools/build-ipad.sh`; absent from git, like the engine's own metallib.
+  - modern_UI/Spektrafilm/SpektraPadResources/default.metallib

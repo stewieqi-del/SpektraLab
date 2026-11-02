@@ -1,7 +1,15 @@
 //  ThumbnailCache.swift — filmstrip thumbnails from ImageIO's embedded
 //  preview, never from the engine, generated off the main actor.
 
+//  Nothing here is AppKit's: `NSRecursiveLock` and `NSLock` are Foundation,
+//  and the thumbnails are ImageIO. The import stays only because the file has
+//  always had it, guarded so the iPad compiles the same cache. `Foundation` is
+//  spelled out because AppKit used to bring it in for `URL` and `Date` -- the
+//  iOS build has no AppKit to do that.
+#if canImport(AppKit)
 import AppKit
+#endif
+import Foundation
 import ImageIO
 
 private struct ThumbnailKey: Hashable, Sendable {

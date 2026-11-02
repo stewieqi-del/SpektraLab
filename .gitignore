@@ -290,6 +290,21 @@ engine/build/
 # Generated from `engine/resources/`, and checked by the app's pre-build phase.
 modern_UI/Spektrafilm/Spektrafilm/Resources/engine/
 
+# The iPad target's staged copy: `engine/build.sh ipad` writes the iOS metallib
+# and rsyncs the tracked materials beside it. Same argument as the line above —
+# the inputs are all in the repository, this folder is a build product — and it
+# also keeps a second 15 MB copy of the DI LUTs out of git.
+modern_UI/Spektrafilm/SpektraPadResources/
+
+# SwiftPM and xtool build products for the no-Mac iPad build. `xtool dev build`
+# compiles in `.build/` on the Linux host, keeps an Xcode-less toolchain copy in
+# `xtool/`, and records `.swiftpm/` state; the source of truth is `Package.swift`
+# and `xtool.yml`, both tracked. The `.ipa` is the packaged output.
+/.build/
+/xtool/
+/.swiftpm/
+/*.ipa
+
 # The camera fixtures live in the spektrafilm fork, not here (see the
 # `tests/Test_image/` rule above). Each checkout and each worktree links to
 # them from its own root, and the correct target differs between the two — a

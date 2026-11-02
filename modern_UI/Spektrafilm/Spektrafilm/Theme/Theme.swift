@@ -67,7 +67,15 @@
 //  The derivation of every number, and the drawing coordinate it came from,
 //  is `modern_UI/design/TOKENS-main-2026-09-17.md`.
 
+//  `AppKit` on macOS, `UIKit` on iOS. The only AppKit symbols this file needs
+//  are the measuring face and the modifier/cursor vocabulary, and both have a
+//  UIKit twin — `PlatformFont`/`PlatformInput`/`PlatformCursor` below name the
+//  twin once so that a view never has to ask which platform it is on.
+#if canImport(AppKit)
 import AppKit
+#else
+import UIKit
+#endif
 import Observation
 import SwiftUI
 
@@ -397,10 +405,23 @@ enum Theme {
         /// Gap between the zoom button and the first glyph after it. Xcode's
         /// is about this; below ~12 the glyph reads as a fourth window button.
         static let trafficLightToGlyph: CGFloat = 16
+        /// Width of the whole row of three window buttons, close button's
+        /// leading edge to zoom button's trailing edge: two centre-to-centre
+        /// gaps plus one button.
+        ///
+        /// AppKit's own measurements (20 pt spacing, 14 pt button) rather than
+        /// a restyle — a person's muscle memory for the close button is built
+        /// on every other window on the machine. The numbers are spelled out
+        /// here instead of read from `TrafficLightAlignment`
+        /// (`Windows/TrafficLights.swift`) because that type is an
+        /// `NSViewRepresentable` and this theme file is also compiled into the
+        /// iPad target, where AppKit does not exist. `TrafficLightAlignment`
+        /// now reads *this* value, so the two cannot drift.
+        static let trafficLightRowWidth: CGFloat = 20 * 2 + 14
         /// How much of a row the buttons take, from its leading edge — what
         /// a header or a bar has to skip before its own first control.
         static var trafficLightClearance: CGFloat {
-            trafficLightLeading + TrafficLightAlignment.rowWidth + trafficLightToGlyph
+            trafficLightLeading + trafficLightRowWidth + trafficLightToGlyph
         }
         /// The same clearance, measured from the **bar's** leading edge
         /// rather than the window's, for the case where the left rail is
@@ -1027,15 +1048,15 @@ enum Theme {
     /// holds the string rather than rounding it into an ellipsis.
     /// The height one line of the system face takes at `size` (before the
     /// interface scale): ascender to descender, rounded up.
-    @MainActor static func lineHeight(size: CGFloat, weight: NSFont.Weight = .bold) -> CGFloat {
-        let font = NSFont.systemFont(ofSize: size * InterfaceScaleStore.shared.scale.factor, weight: weight)
+    @MainActor static func lineHeight(size: CGFloat, weight: PlatformFont.Weight = .bold) -> CGFloat {
+        let font = PlatformFont.systemFont(ofSize: size * InterfaceScaleStore.shared.scale.factor, weight: weight)
         return ceil(font.ascender - font.descender)
     }
 
     @MainActor static func textWidth(_ text: String, size: CGFloat,
-                                     weight: NSFont.Weight = .bold) -> CGFloat {
-        let font = NSFont.systemFont(ofSize: size * InterfaceScaleStore.shared.scale.factor, weight: weight)
-        return ceil((text as NSString).size(withAttributes: [.font: font]).width)
+                                     weight: PlatformFont.Weight = .bold) -> CGFloat {
+        let font = PlatformFont.systemFont(ofSize: size * InterfaceScaleStore.shared.scale.factor, weight: weight)
+        return ceil(PlatformFont.width(of: text, in: font))
     }
 
     enum Font {
@@ -1227,5 +1248,150 @@ private struct DisabledReason: ViewModifier {
     let reason: String
     func body(content: Content) -> some View {
         if show { content.help(reason) } else { content }
+    }
+}
+
+// MARK: - Platform vocabulary
+
+//  Three names, one meaning each, for the places where AppKit and UIKit do
+//  not agree. Every shared file spells them this way rather than testing the
+//  platform at the call site: a view that says `PlatformInput.command` reads
+//  the same on both, and the iPad shell never has to remember which of the
+//  two it is building against.
+//
+//  Nothing here changes what the macOS build does — `PlatformFont` *is*
+//  `NSFont` there, and `padHelp` calls `help`. They exist so the **shared**
+//  sources compile for iOS; the iPad-only shell under `SpektraPad/` is free
+//  to use UIKit directly.
+
+#if canImport(AppKit)
+
+/// The measuring face. `NSFont` on macOS, `UIFont` on iOS — the two carry the
+/// same `ascender`/`descender`/`Weight` surface that `Theme.Typography` needs.
+typealias PlatformFont = NSFont
+
+/// The modifier flags a click was made with. `NSEvent.modifierFlags` is a
+/// process-wide read on macOS; iOS has no modifier keys at all, so the iPad
+/// arm reports none and every `contains(.command)` test answers false, which
+/// is what a tap should mean there.
+enum PlatformInput {
+    static var modifierFlags: NSEvent.ModifierFlags { NSEvent.modifierFlags }
+    /// Whether the last click was made with ⌘ held. A tap on iOS is never a
+    /// multi-select gesture, so this is `false` and the callers fall through
+    /// to their single-select path.
+    static var command: Bool { modifierFlags.contains(.command) }
+    static var option: Bool { modifierFlags.contains(.option) }
+    static var shift: Bool { modifierFlags.contains(.shift) }
+}
+
+/// Pointing-hand cursors. iOS has no pointer to shape (a trackpad pointer is
+/// system-drawn), so the iPad arm is a no-op and the same call sites keep
+/// working.
+enum PlatformCursor {
+    static func resizeUpDown() { NSCursor.resizeUpDown.set() }
+    static func resizeLeftRight() { NSCursor.resizeLeftRight.set() }
+    static func arrow() { NSCursor.arrow.set() }
+}
+
+/// The sRGB components of a SwiftUI colour, for the one place that blends two
+/// of them by hand (`ColorWheel`'s neighbour interpolation). macOS goes
+/// through `NSColor`; iOS through `UIColor`, and both answer the same tuple.
+func srgbComponents(of colour: Color) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+    let resolved = NSColor(colour).usingColorSpace(.sRGB) ?? .gray
+    return (resolved.redComponent, resolved.greenComponent, resolved.blueComponent, resolved.alphaComponent)
+}
+
+#else
+
+/// The measuring face on iOS. `UIFont` is the same idea and `Theme` only ever
+/// asks it for three things, so the type alias is enough — `width(of:in:)`
+/// below is the one member that does not map one-to-one.
+typealias PlatformFont = UIFont
+
+enum PlatformInput {
+    /// iOS reports no modifier keys. Kept as a property rather than a
+    /// constant so the call sites read identically.
+    static var modifierFlags: UIKeyModifierFlags { [] }
+    static var command: Bool { false }
+    static var option: Bool { false }
+    static var shift: Bool { false }
+}
+
+enum PlatformCursor {
+    static func resizeUpDown() {}
+    static func resizeLeftRight() {}
+    static func arrow() {}
+}
+
+func srgbComponents(of colour: Color) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+    var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+    UIColor(colour).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+    return (red, green, blue, alpha)
+}
+
+#endif
+
+extension PlatformFont {
+    /// The width `text` sets at in this face. `NSString.size(withAttributes:)`
+    /// is AppKit's spelling; UIKit's is `size(withAttributes:)` on the same
+    /// bridged class, so one call covers both.
+    static func width(of text: String, in font: PlatformFont) -> CGFloat {
+        (text as NSString).size(withAttributes: [.font: font]).width
+    }
+}
+
+#if !canImport(AppKit)
+extension View {
+    /// `.help` is a macOS tooltip and iOS has no equivalent. The shared views
+    /// author their explanations in the forty-odd places a row can be
+    /// disabled or a control's icon needs a word, so the name is supplied here
+    /// rather than each call site being wrapped: on iOS a tooltip is simply
+    /// absent, and the strings stay where the reason is.
+    func help(_ text: String) -> some View { self }
+}
+#endif
+
+extension View {
+    /// `menuStyle(.button)` is macOS's pop-up-button look (it is not offered on
+    /// iOS). `.automatic` gives `Menu` the system presentation there.
+    @ViewBuilder func menuStyleButton() -> some View {
+        #if canImport(AppKit)
+        self.menuStyle(.button)
+        #else
+        self.menuStyle(.automatic)
+        #endif
+    }
+
+    /// `onContinuousHover` is macOS-only (UIKit has no hover-tracking stream
+    /// for a `UIView`). This is the one call shape the shared controls use —
+    /// "set a cursor while the pointer is inside" — and it degrades to
+    /// nothing on iOS rather than to a compile error.
+    @ViewBuilder func cursorOnHover(_ body: @escaping (Bool) -> Void) -> some View {
+        #if canImport(AppKit)
+        self.onContinuousHover { phase in
+            switch phase {
+            case .active: body(true)
+            case .ended: body(false)
+            }
+        }
+        #else
+        self
+        #endif
+    }
+
+    /// The pointer position while it is over this view, in the view's own
+    /// coordinates, or `nil` when it leaves. `CurveEditor`'s readout is the
+    /// only caller; iOS answers nothing, because a touch has no hover state.
+    @ViewBuilder func pointHover(_ body: @escaping (CGPoint?) -> Void) -> some View {
+        #if canImport(AppKit)
+        self.onContinuousHover { phase in
+            switch phase {
+            case .active(let p): body(p)
+            case .ended: body(nil)
+            }
+        }
+        #else
+        self
+        #endif
     }
 }

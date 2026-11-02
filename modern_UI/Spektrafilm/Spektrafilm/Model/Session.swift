@@ -22,7 +22,13 @@
 //    an edit settles→  reprint(preview resolution)      →  the full render follows
 //    open(folder)   →  Browse, nothing rendered        →  select() enters Print
 
+//  AppKit is only here for `NSMenu` (the canvas's right-click menu). The model
+//  is otherwise Foundation + Observation + SwiftUI, which is why the same file
+//  serves the iPad build: iOS compiles the two menu functions out and the rest
+//  of the state machine is unchanged.
+#if canImport(AppKit)
 import AppKit
+#endif
 import Foundation
 import Observation
 import SwiftUI
@@ -658,6 +664,11 @@ final class Session: CanvasHost {
     private var statusBase: String?
     var stockWarning: String?
     var showExport = false
+    /// iPad only: "the person asked to open something". `openPanel()` has no
+    /// panel to put up there, so it raises this flag and the shell's
+    /// `.fileImporter` answers it. Cleared by the shell when the importer
+    /// closes, whichever way it closed.
+    var importRequested = false
 
     // MARK: - colour
 
@@ -1403,7 +1414,19 @@ final class Session: CanvasHost {
         status = "\(frames.count) frames · pick one in the filmstrip to develop."
     }
 
-    func openPanel() { let urls = Library.chooseFilesOrFolder(); if !urls.isEmpty { open(urls: urls) } }
+    /// Open… on the macOS menu. On iPad there is no `NSOpenPanel` and no
+    /// modal file browser: the shell raises its own `.fileImporter` by setting
+    /// `importRequested`, and that importer calls `open(urls:)` when the
+    /// person has picked something. One entry point either way, so the
+    /// toolbar button and the ⌘O item stay a single command.
+    func openPanel() {
+        #if canImport(AppKit)
+        let urls = Library.chooseFilesOrFolder()
+        if !urls.isEmpty { open(urls: urls) }
+        #else
+        importRequested = true
+        #endif
+    }
 
     /// Re-read a frame's sidecar state — used after a reset from the grid.
     func refreshState(for url: URL) {
@@ -3501,6 +3524,11 @@ final class Session: CanvasHost {
         guard let n, let base = renderer.base else { hoverValue = nil; return }
         hoverValue = Session.sample(base, at: n)
     }
+    //  The canvas's right-click menu, and the `@objc` selectors behind it.
+    //  AppKit only: `NSMenu` is what a right click hands `CanvasNSView`, and
+    //  iOS has no equivalent delivery for a long press that is worth faking
+    //  (the pad shows the same commands in the top bar's menu instead).
+    #if canImport(AppKit)
     func contextMenu() -> NSMenu? {
         if pair != nil { return pairContextMenu() }
         let m = NSMenu()
@@ -3524,6 +3552,7 @@ final class Session: CanvasHost {
     @objc private func pasteMenu() { pasteSettings() }
     @objc private func resetCrop() { geometry = .default }
     @objc private func exportMenu() { showExport = true }
+    #endif
 
     /// What the engine's auto-exposure solved for this frame. The Exp. Comp.
     /// slider is an offset from it, so the UI has to say what the zero means
@@ -3593,7 +3622,16 @@ final class Session: CanvasHost {
 
     /// Read one pixel of an rgba16Unorm texture (shared storage).
     nonisolated static func sample(_ tex: MTLTexture, at n: CGPoint) -> SIMD3<Float>? {
+        // `.managed` is a Mac storage mode: an iOS texture is either `.shared`
+        // (the only kind this app asks for, and the only kind a CPU read can
+        // see) or `.private`, which has no CPU-visible bytes at all. Naming it
+        // unconditionally does not compile for iOS, so it is named where it
+        // exists.
+        #if canImport(AppKit)
         guard tex.storageMode == .shared || tex.storageMode == .managed else { return nil }
+        #else
+        guard tex.storageMode == .shared else { return nil }
+        #endif
         let x = Int(n.x * CGFloat(tex.width - 1)), y = Int(n.y * CGFloat(tex.height - 1))
         var px = [UInt16](repeating: 0, count: 4)
         tex.getBytes(&px, bytesPerRow: 8, from: MTLRegionMake2D(x, y, 1, 1), mipmapLevel: 0)
@@ -4995,6 +5033,9 @@ extension Session {
     }
 
     /// The menu of the hole under the pointer (a right click picks it first).
+    /// AppKit only, for the same reason as `contextMenu()`: the pad offers
+    /// these commands from the pair section's own controls.
+    #if canImport(AppKit)
     func pairContextMenu() -> NSMenu {
         let m = NSMenu()
         func add(_ title: String, _ action: Selector, enabled: Bool = true) {
@@ -5044,6 +5085,7 @@ extension Session {
     @objc private func pairMenuTurnCamera() { setPairTurned(!(pair?.turned ?? false)) }
     @objc private func pairMenuFit() { zoomToFit() }
     @objc private func pairMenuExport() { showExport = true }
+    #endif
 }
 
 // MARK: - a pair's frames, each with its own print and grade

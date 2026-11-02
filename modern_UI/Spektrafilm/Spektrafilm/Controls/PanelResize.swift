@@ -101,14 +101,12 @@ struct PanelResizeHandle: View {
             }
             .contentShape(Rectangle())
             .onHover { hovering = $0 }
-            .onContinuousHover { phase in
-                // The cursor is pushed and popped rather than set, so leaving
-                // the strip restores whatever the canvas had — the hand tool's
-                // cursor is the one that notices.
-                switch phase {
-                case .active: NSCursor.resizeLeftRight.set()
-                case .ended: NSCursor.arrow.set()
-                }
+            // The cursor is pushed and popped rather than set, so leaving
+            // the strip restores whatever the canvas had — the hand tool's
+            // cursor is the one that notices. On iOS there is no cursor and
+            // this compiles to nothing.
+            .cursorOnHover { inside in
+                if inside { PlatformCursor.resizeLeftRight() } else { PlatformCursor.arrow() }
             }
             .gesture(
                 DragGesture(minimumDistance: 1)

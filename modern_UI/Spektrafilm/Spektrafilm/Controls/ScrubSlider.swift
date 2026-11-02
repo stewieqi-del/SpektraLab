@@ -186,7 +186,11 @@ struct ScrubSlider: View {
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged { g in
-                        let mods = NSEvent.modifierFlags
+                        // ⌥ for fine, ⇧ to snap. Neither exists on a touch
+                        // screen, so `PlatformInput` answers false there and
+                        // the drag is the plain one — which is what a finger
+                        // on a slider should be.
+                        let mods = PlatformInput.modifierFlags
                         let span = range.upperBound - range.lowerBound
                         if dragStart == nil {
                             dragStart = value
@@ -195,9 +199,9 @@ struct ScrubSlider: View {
                             let target = range.lowerBound + Double(f) * span
                             if abs(target - value) > span * 0.03 { dragStart = target }
                         }
-                        let sens: Double = mods.contains(.option) ? 0.25 : 1
+                        let sens: Double = PlatformInput.option ? 0.25 : 1
                         var v = (dragStart ?? value) + Double(g.translation.width / max(w - knobW, 1)) * span * sens
-                        if mods.contains(.shift) { v = (v / snap).rounded() * snap }
+                        if PlatformInput.shift { v = (v / snap).rounded() * snap }
                         value = v.clamped(to: range)
                     }
                     .onEnded { _ in dragStart = nil; onCommit() }

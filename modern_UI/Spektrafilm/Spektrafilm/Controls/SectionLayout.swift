@@ -101,11 +101,12 @@ struct SectionDivider: View {
                     .frame(height: Self.hitHeight)
                     .contentShape(Rectangle())
                     .onHover { hovering = $0 }
-                    .onContinuousHover { phase in
-                        switch phase {
-                        case .active: NSCursor.resizeUpDown.set()
-                        case .ended: NSCursor.arrow.set()
-                        }
+                    // The resize cursor is a pointer affordance; `cursorOnHover`
+                    // is the shape that compiles to `onContinuousHover` on macOS
+                    // and to nothing at all on iOS, where there is no cursor to
+                    // shape and the drag is a finger.
+                    .cursorOnHover { inside in
+                        if inside { PlatformCursor.resizeUpDown() } else { PlatformCursor.arrow() }
                     }
                     .gesture(
                         DragGesture(minimumDistance: 1, coordinateSpace: .global)

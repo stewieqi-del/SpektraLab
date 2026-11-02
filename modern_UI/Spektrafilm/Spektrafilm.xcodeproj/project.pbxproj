@@ -480,9 +480,11 @@
 		3B5B23434C9E6560483E822B /* bundle-licenses.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "bundle-licenses.sh"; sourceTree = "<group>"; };
 		769986EEE867DFEAEA6221C8 /* capture-live.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "capture-live.sh"; sourceTree = "<group>"; };
 		58B2C0307BBC444C754E5565 /* check-bundle-resources.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "check-bundle-resources.sh"; sourceTree = "<group>"; };
+		C8F507D58C107735884B1F65 /* check-pad-resources.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "check-pad-resources.sh"; sourceTree = "<group>"; };
 		1E85E1F5E0D2DC3770A53E08 /* compare-design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "compare-design.swift"; sourceTree = "<group>"; };
 		10478F93C01D4A12794B8E8D /* compare-layout.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "compare-layout.py"; sourceTree = "<group>"; };
 		7A1377F4B609B3CE3513CAFD /* gen-catalog.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "gen-catalog.py"; sourceTree = "<group>"; };
+		86F299F51C34C71A5C7BC0C5 /* gen-ipad-project.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "gen-ipad-project.py"; sourceTree = "<group>"; };
 		D9DFA21EE15AC0B57DCC3ECE /* gen-project.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "gen-project.py"; sourceTree = "<group>"; };
 		2364A4BDECB2036E04A42FE8 /* live-window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "live-window.swift"; sourceTree = "<group>"; };
 		C6454FA299ABB90F982C453B /* make-smoke.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "make-smoke.py"; sourceTree = "<group>"; };
@@ -496,9 +498,11 @@
 				3B5B23434C9E6560483E822B /* bundle-licenses.sh */,
 				769986EEE867DFEAEA6221C8 /* capture-live.sh */,
 				58B2C0307BBC444C754E5565 /* check-bundle-resources.sh */,
+				C8F507D58C107735884B1F65 /* check-pad-resources.sh */,
 				1E85E1F5E0D2DC3770A53E08 /* compare-design.swift */,
 				10478F93C01D4A12794B8E8D /* compare-layout.py */,
 				7A1377F4B609B3CE3513CAFD /* gen-catalog.py */,
+				86F299F51C34C71A5C7BC0C5 /* gen-ipad-project.py */,
 				D9DFA21EE15AC0B57DCC3ECE /* gen-project.py */,
 				2364A4BDECB2036E04A42FE8 /* live-window.swift */,
 				C6454FA299ABB90F982C453B /* make-smoke.py */,

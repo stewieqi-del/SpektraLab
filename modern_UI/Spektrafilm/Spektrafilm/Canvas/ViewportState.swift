@@ -145,3 +145,89 @@ struct ViewportState: Equatable, Sendable {
         setScale(next * hundredScale, about: anchor)
     }
 }
+
+// MARK: - The canvas's contract with whatever draws it
+
+//  These three declarations used to live in `Canvas/MetalCanvasView.swift`,
+//  which is the AppKit canvas: an `MTKView` subclass whose gestures arrive as
+//  `NSEvent`s. The iPad's canvas is the same picture in a `UIView`, so the
+//  *contract* moved here, to the canvas's platform-free arithmetic.
+//  `MetalCanvasView.swift` is now only the AppKit half; `SpektraPad/
+//  PadCanvas.swift` is the UIKit half, and the two differ in gestures and in
+//  nothing else.
+//
+//  The one member that is genuinely platform-shaped is `contextMenu()`: it
+//  answers with an `NSMenu`, which is what the right-click path needs and
+//  what a long press on iOS cannot accept. It is therefore compiled out on
+//  iOS, and so is its implementation in `Session` — a host with no menu
+//  simply does not declare one.
+
+#if canImport(AppKit)
+import AppKit
+#endif
+
+/// Which tool the canvas is in. Capture One's three: a pointer, a hand, and
+/// the crop frame.
+enum CanvasTool: String, CaseIterable, Sendable { case select, hand, crop }
+
+/// A straighten gesture in progress, in source-normalised coordinates.
+struct StraightenLine: Equatable, Sendable { var from: CGPoint; var to: CGPoint }
+
+@MainActor
+protocol CanvasHost: AnyObject {
+    var renderer: Renderer { get }
+    var tool: CanvasTool { get }
+    var pickerActive: Bool { get }
+    func viewportChanged()
+    func picked(normalised: CGPoint)
+    var geometry: Geometry { get }
+    /// The crop tool's pivot, source-normalised. Every crop-tool drag is
+    /// converted through the edit space this point defines, so a gesture and
+    /// the picture it is dragging cannot disagree about where the centre is.
+    var cropPivot: CGPoint { get }
+    /// The live tier's pixel size. The geometry is normalised against it, and
+    /// the rotation is rigid in *pixels*, so the hit tests need it.
+    var sourceImageSize: CGSize { get }
+    func geometryChanged(_ geometry: Geometry)
+    /// Return: keep the crop and leave the tool. Esc: put the crop back the
+    /// way it was on entering the tool, and leave. Both are no-ops outside
+    /// the crop tool.
+    func commitCrop()
+    func cancelCrop()
+    /// The line being drawn for a ⌘-drag straighten, or nil. Published so
+    /// `CropOverlay` can draw it; the gesture itself stays in the view.
+    func straightenPreview(_ line: StraightenLine?)
+    /// The selected mask's grips, source-normalised. Empty unless a mask with
+    /// draggable geometry is selected.
+    var maskHandles: [MaskHandle] { get }
+    func maskHandleDragged(_ handle: MaskHandle, to normalised: CGPoint)
+    func toggledOriginal(_ on: Bool)
+    #if canImport(AppKit)
+    func contextMenu() -> NSMenu?
+    #endif
+    func hovered(normalised: CGPoint?)
+    func stepFrame(_ delta: Int)
+    // Picking and placing on the canvas (defaults below: neither).
+    func clicked(normalised: CGPoint?)
+    func placementBegan(at normalised: CGPoint) -> Bool
+    func placementMoved(to normalised: CGPoint)
+    func placementEnded()
+    func placementZoomed(by factor: Double, at normalised: CGPoint) -> Bool
+    func endPlacement() -> Bool
+}
+
+/// What a host with something to pick or to place on the canvas answers; the
+/// defaults are a canvas with neither. A half-frame pair uses them: a click
+/// picks a hole, and in its placement mode a drag moves the picture under the
+/// hole and the wheel scales it.
+extension CanvasHost {
+    func clicked(normalised: CGPoint?) {}
+    /// True when the host takes this drag; the view then reports its moves
+    /// instead of panning.
+    func placementBegan(at normalised: CGPoint) -> Bool { false }
+    func placementMoved(to normalised: CGPoint) {}
+    func placementEnded() {}
+    /// True when the host took the scroll or the pinch as a zoom of its own.
+    func placementZoomed(by factor: Double, at normalised: CGPoint) -> Bool { false }
+    func endPlacement() -> Bool { false }
+}

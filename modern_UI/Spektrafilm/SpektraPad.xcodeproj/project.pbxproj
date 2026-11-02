@@ -1,0 +1,855 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+		FC6C3711D283A12C8A720E87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+		5E2F84C4098F72A518D2BD92 /* PadCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PadCanvas.swift"; sourceTree = "<group>"; };
+		174B498B21C6FECFC28FF805 /* PadChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PadChrome.swift"; sourceTree = "<group>"; };
+		11981CA7BC7A4DFF3AEC04E3 /* PadEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PadEditor.swift"; sourceTree = "<group>"; };
+		26E3D52CA9DAA16A73FBEF90 /* PadExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PadExport.swift"; sourceTree = "<group>"; };
+		D68E447BF64B9C310B3A28A7 /* PadLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PadLibrary.swift"; sourceTree = "<group>"; };
+		691D3AEA5350A022D78C2A9C /* SpektraPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SpektraPad.entitlements"; sourceTree = "<group>"; };
+		F946AF1CA27D09AB6D8931D4 /* SpektraPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpektraPadApp.swift"; sourceTree = "<group>"; };
+		869B34626A483A75D304C6CB /* SpektraPad */ = {
+			isa = PBXGroup;
+			children = (
+				FC6C3711D283A12C8A720E87 /* Info.plist */,
+				5E2F84C4098F72A518D2BD92 /* PadCanvas.swift */,
+				174B498B21C6FECFC28FF805 /* PadChrome.swift */,
+				11981CA7BC7A4DFF3AEC04E3 /* PadEditor.swift */,
+				26E3D52CA9DAA16A73FBEF90 /* PadExport.swift */,
+				D68E447BF64B9C310B3A28A7 /* PadLibrary.swift */,
+				691D3AEA5350A022D78C2A9C /* SpektraPad.entitlements */,
+				F946AF1CA27D09AB6D8931D4 /* SpektraPadApp.swift */
+			);
+			path = "SpektraPad";
+			sourceTree = "<group>";
+		};
+		3375270C81BEA0B1B8896473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
+		DB77486F6667B838E6E94001 /* CineonLUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CineonLUT.swift"; sourceTree = "<group>"; };
+		3CC9377A61A47BF9746521A9 /* ColourManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColourManagement.swift"; sourceTree = "<group>"; };
+		AE9DF7CC994C0A44902731CA /* CompareOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompareOverlay.swift"; sourceTree = "<group>"; };
+		DA37ABB15B5AE3CB099586C8 /* CropOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CropOverlay.swift"; sourceTree = "<group>"; };
+		46075402D0B9D2BA48F0BE15 /* MaskOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaskOverlay.swift"; sourceTree = "<group>"; };
+		B97DAB336698EA10C283D351 /* PairOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PairOverlay.swift"; sourceTree = "<group>"; };
+		B0ACA442889C10451541AE53 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Renderer.swift"; sourceTree = "<group>"; };
+		45A2278A553E7F675C711BDF /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = "Shaders.metal"; sourceTree = "<group>"; };
+		3596117B90D8381030422780 /* TextureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextureStore.swift"; sourceTree = "<group>"; };
+		10D9844F361A8278E8F4736F /* ViewportState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewportState.swift"; sourceTree = "<group>"; };
+		F2592FDD5EA53DA4A185D88F /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				DB77486F6667B838E6E94001 /* CineonLUT.swift */,
+				3CC9377A61A47BF9746521A9 /* ColourManagement.swift */,
+				AE9DF7CC994C0A44902731CA /* CompareOverlay.swift */,
+				DA37ABB15B5AE3CB099586C8 /* CropOverlay.swift */,
+				46075402D0B9D2BA48F0BE15 /* MaskOverlay.swift */,
+				B97DAB336698EA10C283D351 /* PairOverlay.swift */,
+				B0ACA442889C10451541AE53 /* Renderer.swift */,
+				45A2278A553E7F675C711BDF /* Shaders.metal */,
+				3596117B90D8381030422780 /* TextureStore.swift */,
+				10D9844F361A8278E8F4736F /* ViewportState.swift */
+			);
+			path = "Canvas";
+			sourceTree = "<group>";
+		};
+		841BAB5289564CFBE151982F /* BeforeAfterIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BeforeAfterIcon.swift"; sourceTree = "<group>"; };
+		1967107938C5043791D8A984 /* ColorWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorWheel.swift"; sourceTree = "<group>"; };
+		3D5B5D58F46059ECDC219EEF /* CurveEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurveEditor.swift"; sourceTree = "<group>"; };
+		949AA76515DB21F6736FB674 /* DetentSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetentSlider.swift"; sourceTree = "<group>"; };
+		8FB03F4746C5B8ABA54EF57B /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlowLayout.swift"; sourceTree = "<group>"; };
+		97C523570EE6096E0B873D38 /* FormatPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormatPicker.swift"; sourceTree = "<group>"; };
+		7BD55D2FF39E90B43F16B1EB /* HistogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistogramView.swift"; sourceTree = "<group>"; };
+		DBF56DA2B8AFC4212CB43DFB /* PanelResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PanelResize.swift"; sourceTree = "<group>"; };
+		1EB09A5F6238A78E4E1967A8 /* ScrubSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrubSlider.swift"; sourceTree = "<group>"; };
+		2A021B05AC73EF8147AB13FF /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SectionHeader.swift"; sourceTree = "<group>"; };
+		4AD525D185AC7442F4418DC7 /* SectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SectionLayout.swift"; sourceTree = "<group>"; };
+		D13DA36007DA0F6AF18B2DEC /* SegmentedSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedSwitch.swift"; sourceTree = "<group>"; };
+		B0930B2A9DBFDAEE68BE9A05 /* WhiteBalanceRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WhiteBalanceRows.swift"; sourceTree = "<group>"; };
+		8BA0238B9B43478A480FB02A /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				841BAB5289564CFBE151982F /* BeforeAfterIcon.swift */,
+				1967107938C5043791D8A984 /* ColorWheel.swift */,
+				3D5B5D58F46059ECDC219EEF /* CurveEditor.swift */,
+				949AA76515DB21F6736FB674 /* DetentSlider.swift */,
+				8FB03F4746C5B8ABA54EF57B /* FlowLayout.swift */,
+				97C523570EE6096E0B873D38 /* FormatPicker.swift */,
+				7BD55D2FF39E90B43F16B1EB /* HistogramView.swift */,
+				DBF56DA2B8AFC4212CB43DFB /* PanelResize.swift */,
+				1EB09A5F6238A78E4E1967A8 /* ScrubSlider.swift */,
+				2A021B05AC73EF8147AB13FF /* SectionHeader.swift */,
+				4AD525D185AC7442F4418DC7 /* SectionLayout.swift */,
+				D13DA36007DA0F6AF18B2DEC /* SegmentedSwitch.swift */,
+				B0930B2A9DBFDAEE68BE9A05 /* WhiteBalanceRows.swift */
+			);
+			path = "Controls";
+			sourceTree = "<group>";
+		};
+		B2E908B866AB24915A3AAA25 /* DiagnosticBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiagnosticBundle.swift"; sourceTree = "<group>"; };
+		859DB3AD0F3332C43D5669B7 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diagnostics.swift"; sourceTree = "<group>"; };
+		ACE073FD4849B4B91D20027E /* DiskCacheStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiskCacheStore.swift"; sourceTree = "<group>"; };
+		87100CA218C1CD849E3E9907 /* JobLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JobLog.swift"; sourceTree = "<group>"; };
+		DC6094A340096404C0B27B9D /* LogCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogCore.swift"; sourceTree = "<group>"; };
+		560647851490C28386050AC5 /* LogFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogFile.swift"; sourceTree = "<group>"; };
+		069D4AF71BED2CF673779A30 /* MemoryArena.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoryArena.swift"; sourceTree = "<group>"; };
+		76C83AD6875D028F8F91F77A /* MemorySampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemorySampler.swift"; sourceTree = "<group>"; };
+		38005174C2E4036BCF6B3AEA /* PrintWriteback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrintWriteback.swift"; sourceTree = "<group>"; };
+		9833FF0C88B97DC106143F45 /* Diagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				B2E908B866AB24915A3AAA25 /* DiagnosticBundle.swift */,
+				859DB3AD0F3332C43D5669B7 /* Diagnostics.swift */,
+				ACE073FD4849B4B91D20027E /* DiskCacheStore.swift */,
+				87100CA218C1CD849E3E9907 /* JobLog.swift */,
+				DC6094A340096404C0B27B9D /* LogCore.swift */,
+				560647851490C28386050AC5 /* LogFile.swift */,
+				069D4AF71BED2CF673779A30 /* MemoryArena.swift */,
+				76C83AD6875D028F8F91F77A /* MemorySampler.swift */,
+				38005174C2E4036BCF6B3AEA /* PrintWriteback.swift */
+			);
+			path = "Diagnostics";
+			sourceTree = "<group>";
+		};
+		6266D964C7958FF3E91F147A /* Exporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exporter.swift"; sourceTree = "<group>"; };
+		42AB706553EB1C7B8DD638C9 /* ExportRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportRecipe.swift"; sourceTree = "<group>"; };
+		DAC951270862F3EBF54E65A9 /* SoftProof.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SoftProof.swift"; sourceTree = "<group>"; };
+		88C26DDE74126AA3DF583028 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				6266D964C7958FF3E91F147A /* Exporter.swift */,
+				42AB706553EB1C7B8DD638C9 /* ExportRecipe.swift */,
+				DAC951270862F3EBF54E65A9 /* SoftProof.swift */
+			);
+			path = "Export";
+			sourceTree = "<group>";
+		};
+		4427487EA5994272B72FACF7 /* FramePipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FramePipeline.swift"; sourceTree = "<group>"; };
+		5C6EA4AC509736AE9587FCE5 /* ImageDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageDecoder.swift"; sourceTree = "<group>"; };
+		0213404ECEEF9008E1F1D085 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library.swift"; sourceTree = "<group>"; };
+		B580055306499DDD14A30404 /* PairComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PairComposer.swift"; sourceTree = "<group>"; };
+		ED424614D98D9C201DAC2E61 /* ThumbnailCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThumbnailCache.swift"; sourceTree = "<group>"; };
+		B52F2FA09681D031C6260163 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				4427487EA5994272B72FACF7 /* FramePipeline.swift */,
+				5C6EA4AC509736AE9587FCE5 /* ImageDecoder.swift */,
+				0213404ECEEF9008E1F1D085 /* Library.swift */,
+				B580055306499DDD14A30404 /* PairComposer.swift */,
+				ED424614D98D9C201DAC2E61 /* ThumbnailCache.swift */
+			);
+			path = "Import";
+			sourceTree = "<group>";
+		};
+		1CC1E55A9F47D4518AE30974 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Localization.swift"; sourceTree = "<group>"; };
+		A649699A5D48C90003A81CF9 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings.swift"; sourceTree = "<group>"; };
+		C17D99B3AA92877702AECF99 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				1CC1E55A9F47D4518AE30974 /* Localization.swift */,
+				A649699A5D48C90003A81CF9 /* Strings.swift */
+			);
+			path = "Localization";
+			sourceTree = "<group>";
+		};
+		757296FA0954F05C85A8DF36 /* Adjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Adjustments.swift"; sourceTree = "<group>"; };
+		84E1A9EFD37DC4FCA386919E /* CachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CachePolicy.swift"; sourceTree = "<group>"; };
+		2C3EFD7B5DE8EA57D406BDBB /* CurveMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurveMath.swift"; sourceTree = "<group>"; };
+		1FBA54A8DDF9F7C6003FE5D2 /* DecodeResidency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DecodeResidency.swift"; sourceTree = "<group>"; };
+		8D09A6A4DAA786A635404B54 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeatureFlags.swift"; sourceTree = "<group>"; };
+		D4397AB5CB17C72C8113A0E3 /* FilmEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilmEdge.swift"; sourceTree = "<group>"; };
+		1FD42235BD294C6BC7257371 /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Frame.swift"; sourceTree = "<group>"; };
+		57946CF0E400CB6362643819 /* FrameFraming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FrameFraming.swift"; sourceTree = "<group>"; };
+		5AE825B791EC7C8A097CABB6 /* FrameOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FrameOrder.swift"; sourceTree = "<group>"; };
+		B74BF4FE2C8992579B3BCA1E /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Geometry.swift"; sourceTree = "<group>"; };
+		283E17892DB9D0520A803A34 /* HalfFramePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HalfFramePair.swift"; sourceTree = "<group>"; };
+		D9A5D4FB130D7DA5C1364A10 /* Latitude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Latitude.swift"; sourceTree = "<group>"; };
+		BD3FA299D7EB9C019C5EB676 /* Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mask.swift"; sourceTree = "<group>"; };
+		2AFE54D96D2505F69D272CBC /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Params.swift"; sourceTree = "<group>"; };
+		DD7E26A3E79A78EBDD307CA5 /* Session+FilmEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+FilmEdge.swift"; sourceTree = "<group>"; };
+		5E28E5289A5F9446065A3593 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session.swift"; sourceTree = "<group>"; };
+		5D2036B1E86CE9C074686839 /* SettingsClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsClipboard.swift"; sourceTree = "<group>"; };
+		F41E0CBEE2514220F975C465 /* Sidecar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sidecar.swift"; sourceTree = "<group>"; };
+		54760792255D82D0FCE4FE92 /* StockCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StockCatalog.swift"; sourceTree = "<group>"; };
+		73CD38122A0624F1B181E883 /* ToneMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToneMask.swift"; sourceTree = "<group>"; };
+		94978EB2EBC9377196266595 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				757296FA0954F05C85A8DF36 /* Adjustments.swift */,
+				84E1A9EFD37DC4FCA386919E /* CachePolicy.swift */,
+				2C3EFD7B5DE8EA57D406BDBB /* CurveMath.swift */,
+				1FBA54A8DDF9F7C6003FE5D2 /* DecodeResidency.swift */,
+				8D09A6A4DAA786A635404B54 /* FeatureFlags.swift */,
+				D4397AB5CB17C72C8113A0E3 /* FilmEdge.swift */,
+				1FD42235BD294C6BC7257371 /* Frame.swift */,
+				57946CF0E400CB6362643819 /* FrameFraming.swift */,
+				5AE825B791EC7C8A097CABB6 /* FrameOrder.swift */,
+				B74BF4FE2C8992579B3BCA1E /* Geometry.swift */,
+				283E17892DB9D0520A803A34 /* HalfFramePair.swift */,
+				D9A5D4FB130D7DA5C1364A10 /* Latitude.swift */,
+				BD3FA299D7EB9C019C5EB676 /* Mask.swift */,
+				2AFE54D96D2505F69D272CBC /* Params.swift */,
+				DD7E26A3E79A78EBDD307CA5 /* Session+FilmEdge.swift */,
+				5E28E5289A5F9446065A3593 /* Session.swift */,
+				5D2036B1E86CE9C074686839 /* SettingsClipboard.swift */,
+				F41E0CBEE2514220F975C465 /* Sidecar.swift */,
+				54760792255D82D0FCE4FE92 /* StockCatalog.swift */,
+				73CD38122A0624F1B181E883 /* ToneMask.swift */
+			);
+			path = "Model";
+			sourceTree = "<group>";
+		};
+		831653CD6B716B9CB37E7445 /* CameraSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraSection.swift"; sourceTree = "<group>"; };
+		927C1341FFF10E11B804120C /* ClipboardSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClipboardSection.swift"; sourceTree = "<group>"; };
+		773B97297FE5E4580B7CE70F /* CropSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CropSection.swift"; sourceTree = "<group>"; };
+		85BB0BF741B4E4A037E0A9AE /* DateBackSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateBackSection.swift"; sourceTree = "<group>"; };
+		B729AD2EB5E7519FE5499F61 /* EnlargerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnlargerSection.swift"; sourceTree = "<group>"; };
+		FA440EFCACD5AEE5DC29AC7B /* FilmEdgeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilmEdgeSection.swift"; sourceTree = "<group>"; };
+		D683EAE35F9582121B7AA62C /* FilmSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FilmSection.swift"; sourceTree = "<group>"; };
+		24D43BD7B9CBB43662F0CD4F /* LatitudeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LatitudeSection.swift"; sourceTree = "<group>"; };
+		D8C62B445BB801BDB4827701 /* MasksSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MasksSection.swift"; sourceTree = "<group>"; };
+		AAE77600C4DB8964A93036B8 /* NavigatorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigatorSection.swift"; sourceTree = "<group>"; };
+		6F4A151AC41077EF596D04AE /* PairSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PairSection.swift"; sourceTree = "<group>"; };
+		31604E276003EFAFDCC77A76 /* ParameterSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParameterSections.swift"; sourceTree = "<group>"; };
+		CBC3A4A2D1A91A9075EFE386 /* PrintProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrintProfileSection.swift"; sourceTree = "<group>"; };
+		31CECD7A983BF62235F8F909 /* RightSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RightSections.swift"; sourceTree = "<group>"; };
+		6D96546C1610FE27FA9014C7 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				831653CD6B716B9CB37E7445 /* CameraSection.swift */,
+				927C1341FFF10E11B804120C /* ClipboardSection.swift */,
+				773B97297FE5E4580B7CE70F /* CropSection.swift */,
+				85BB0BF741B4E4A037E0A9AE /* DateBackSection.swift */,
+				B729AD2EB5E7519FE5499F61 /* EnlargerSection.swift */,
+				FA440EFCACD5AEE5DC29AC7B /* FilmEdgeSection.swift */,
+				D683EAE35F9582121B7AA62C /* FilmSection.swift */,
+				24D43BD7B9CBB43662F0CD4F /* LatitudeSection.swift */,
+				D8C62B445BB801BDB4827701 /* MasksSection.swift */,
+				AAE77600C4DB8964A93036B8 /* NavigatorSection.swift */,
+				6F4A151AC41077EF596D04AE /* PairSection.swift */,
+				31604E276003EFAFDCC77A76 /* ParameterSections.swift */,
+				CBC3A4A2D1A91A9075EFE386 /* PrintProfileSection.swift */,
+				31CECD7A983BF62235F8F909 /* RightSections.swift */
+			);
+			path = "Sections";
+			sourceTree = "<group>";
+		};
+		6B9FBE8501886FCAB3FC35BF /* CropMaskedThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CropMaskedThumbnail.swift"; sourceTree = "<group>"; };
+		E5F0DD211AC8BBD623882342 /* Filmstrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Filmstrip.swift"; sourceTree = "<group>"; };
+		FBAC6D9C1B679D6F2364EDAC /* LeftPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LeftPanel.swift"; sourceTree = "<group>"; };
+		464261EAAE2E1731D8109766 /* RightPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RightPanel.swift"; sourceTree = "<group>"; };
+		43C8D0438EAE575CD4C06CEB /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				6D96546C1610FE27FA9014C7 /* Sections */,
+				6B9FBE8501886FCAB3FC35BF /* CropMaskedThumbnail.swift */,
+				E5F0DD211AC8BBD623882342 /* Filmstrip.swift */,
+				FBAC6D9C1B679D6F2364EDAC /* LeftPanel.swift */,
+				464261EAAE2E1731D8109766 /* RightPanel.swift */
+			);
+			path = "Panels";
+			sourceTree = "<group>";
+		};
+		FE486EFAAFCD8BEF3A8D71D6 /* EngineClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EngineClient.swift"; sourceTree = "<group>"; };
+		4C57EB1895B5E1FE0824358E /* EngineMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EngineMessage.swift"; sourceTree = "<group>"; };
+		2570445CCC905A6DD29D02F1 /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Methods.swift"; sourceTree = "<group>"; };
+		658A1D2EB50A0D8EB93C8A9F /* RenderScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderScheduler.swift"; sourceTree = "<group>"; };
+		A3A7829A288CA275C38E3A39 /* Spektrafilm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spektrafilm-Bridging-Header.h"; sourceTree = "<group>"; };
+		DB17323FBCFC0CF9A11FDBA4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FE486EFAAFCD8BEF3A8D71D6 /* EngineClient.swift */,
+				4C57EB1895B5E1FE0824358E /* EngineMessage.swift */,
+				2570445CCC905A6DD29D02F1 /* Methods.swift */,
+				658A1D2EB50A0D8EB93C8A9F /* RenderScheduler.swift */,
+				A3A7829A288CA275C38E3A39 /* Spektrafilm-Bridging-Header.h */
+			);
+			path = "Service";
+			sourceTree = "<group>";
+		};
+		E9A855B54DCFEA59C4405355 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme.swift"; sourceTree = "<group>"; };
+		8EB45331C2448244C60954B0 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				E9A855B54DCFEA59C4405355 /* Theme.swift */
+			);
+			path = "Theme";
+			sourceTree = "<group>";
+		};
+		58EE2CED0B2C7C1F694C2A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+		2FFF020EEE5414F41FA8C099 /* Spektrafilm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Spektrafilm.entitlements"; sourceTree = "<group>"; };
+		3C3DC463728E9522781A7805 /* Spektrafilm */ = {
+			isa = PBXGroup;
+			children = (
+				3375270C81BEA0B1B8896473 /* Assets.xcassets */,
+				F2592FDD5EA53DA4A185D88F /* Canvas */,
+				8BA0238B9B43478A480FB02A /* Controls */,
+				9833FF0C88B97DC106143F45 /* Diagnostics */,
+				88C26DDE74126AA3DF583028 /* Export */,
+				B52F2FA09681D031C6260163 /* Import */,
+				C17D99B3AA92877702AECF99 /* Localization */,
+				94978EB2EBC9377196266595 /* Model */,
+				43C8D0438EAE575CD4C06CEB /* Panels */,
+				DB17323FBCFC0CF9A11FDBA4 /* Service */,
+				8EB45331C2448244C60954B0 /* Theme */,
+				58EE2CED0B2C7C1F694C2A6C /* Info.plist */,
+				2FFF020EEE5414F41FA8C099 /* Spektrafilm.entitlements */
+			);
+			path = "Spektrafilm";
+			sourceTree = "<group>";
+		};
+		CC3210C775C0FB9779F6838C /* blob.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "blob.cpp"; path = "../../engine/src/core/blob.cpp"; sourceTree = SOURCE_ROOT; };
+		215930583F367EC69222620A /* cam16.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "cam16.cpp"; path = "../../engine/src/core/cam16.cpp"; sourceTree = SOURCE_ROOT; };
+		6DC1D74BE67AD1075040BAA8 /* colour.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "colour.cpp"; path = "../../engine/src/core/colour.cpp"; sourceTree = SOURCE_ROOT; };
+		77D9C5C0A25442DE67A9B1DE /* curves.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "curves.cpp"; path = "../../engine/src/core/curves.cpp"; sourceTree = SOURCE_ROOT; };
+		EA8352F54C0DA5761E29342C /* digital_intermediate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "digital_intermediate.cpp"; path = "../../engine/src/core/digital_intermediate.cpp"; sourceTree = SOURCE_ROOT; };
+		9F7B85F45EBDF1CE3728F27D /* hanatos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "hanatos.cpp"; path = "../../engine/src/core/hanatos.cpp"; sourceTree = SOURCE_ROOT; };
+		9DFC1577C6F351347984BBA6 /* json.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "json.cpp"; path = "../../engine/src/core/json.cpp"; sourceTree = SOURCE_ROOT; };
+		5F12CEA67BE4CABCBD8A194F /* latitude_fit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "latitude_fit.cpp"; path = "../../engine/src/core/latitude_fit.cpp"; sourceTree = SOURCE_ROOT; };
+		0F90D106A52C5D6476740420 /* numeric.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "numeric.cpp"; path = "../../engine/src/core/numeric.cpp"; sourceTree = SOURCE_ROOT; };
+		2C61086C8EC6D0D28BE6D34A /* params.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "params.cpp"; path = "../../engine/src/core/params.cpp"; sourceTree = SOURCE_ROOT; };
+		A5E364C2C3926AF21426B912 /* print_lut.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "print_lut.cpp"; path = "../../engine/src/core/print_lut.cpp"; sourceTree = SOURCE_ROOT; };
+		9119F49C212A771C5930C93C /* printing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "printing.cpp"; path = "../../engine/src/core/printing.cpp"; sourceTree = SOURCE_ROOT; };
+		3C85018F7CFC2D41AC98B13B /* profile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "profile.cpp"; path = "../../engine/src/core/profile.cpp"; sourceTree = SOURCE_ROOT; };
+		1D045DFCC1EDDCD6A7A24BAC /* setup_cache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "setup_cache.cpp"; path = "../../engine/src/core/setup_cache.cpp"; sourceTree = SOURCE_ROOT; };
+		4B3FFEDB7D788D9CE9176200 /* spectral.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "spectral.cpp"; path = "../../engine/src/core/spectral.cpp"; sourceTree = SOURCE_ROOT; };
+		07C47698192131C92F2CB924 /* metal_gpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "metal_gpu.cpp"; path = "../../engine/src/gpu/metal_gpu.cpp"; sourceTree = SOURCE_ROOT; };
+		F6410F0A97C5410171E3B7A9 /* metal_impl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "metal_impl.cpp"; path = "../../engine/src/gpu/metal_impl.cpp"; sourceTree = SOURCE_ROOT; };
+		C132A91149E2E1D76F4F8C2E /* blur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "blur.cpp"; path = "../../engine/src/pipeline/blur.cpp"; sourceTree = SOURCE_ROOT; };
+		C8D24B2105DE16C5200297CC /* contrast_mask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "contrast_mask.cpp"; path = "../../engine/src/pipeline/contrast_mask.cpp"; sourceTree = SOURCE_ROOT; };
+		E2C17B8BF9B1AE15206603D4 /* engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "engine.cpp"; path = "../../engine/src/pipeline/engine.cpp"; sourceTree = SOURCE_ROOT; };
+		0690E24369EB1BEF328A5C19 /* overscan.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "overscan.cpp"; path = "../../engine/src/pipeline/overscan.cpp"; sourceTree = SOURCE_ROOT; };
+		05255F333E49F5B4B78CE005 /* pipeline.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "pipeline.cpp"; path = "../../engine/src/pipeline/pipeline.cpp"; sourceTree = SOURCE_ROOT; };
+		6B9E732572541F028D0B239A /* scene_latitude.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "scene_latitude.cpp"; path = "../../engine/src/pipeline/scene_latitude.cpp"; sourceTree = SOURCE_ROOT; };
+		6E206BF4A16CC067140F0164 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				CC3210C775C0FB9779F6838C /* blob.cpp */,
+				215930583F367EC69222620A /* cam16.cpp */,
+				6DC1D74BE67AD1075040BAA8 /* colour.cpp */,
+				77D9C5C0A25442DE67A9B1DE /* curves.cpp */,
+				EA8352F54C0DA5761E29342C /* digital_intermediate.cpp */,
+				9F7B85F45EBDF1CE3728F27D /* hanatos.cpp */,
+				9DFC1577C6F351347984BBA6 /* json.cpp */,
+				5F12CEA67BE4CABCBD8A194F /* latitude_fit.cpp */,
+				0F90D106A52C5D6476740420 /* numeric.cpp */,
+				2C61086C8EC6D0D28BE6D34A /* params.cpp */,
+				A5E364C2C3926AF21426B912 /* print_lut.cpp */,
+				9119F49C212A771C5930C93C /* printing.cpp */,
+				3C85018F7CFC2D41AC98B13B /* profile.cpp */,
+				1D045DFCC1EDDCD6A7A24BAC /* setup_cache.cpp */,
+				4B3FFEDB7D788D9CE9176200 /* spectral.cpp */,
+				07C47698192131C92F2CB924 /* metal_gpu.cpp */,
+				F6410F0A97C5410171E3B7A9 /* metal_impl.cpp */,
+				C132A91149E2E1D76F4F8C2E /* blur.cpp */,
+				C8D24B2105DE16C5200297CC /* contrast_mask.cpp */,
+				E2C17B8BF9B1AE15206603D4 /* engine.cpp */,
+				0690E24369EB1BEF328A5C19 /* overscan.cpp */,
+				05255F333E49F5B4B78CE005 /* pipeline.cpp */,
+				6B9E732572541F028D0B239A /* scene_latitude.cpp */
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
+		8261930BF05F126E74AFF6AD /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpektraPadResources/Resources; sourceTree = SOURCE_ROOT; };
+		8CB4C5A2FD81B418CDD0B7BD /* PadResources */ = {
+			isa = PBXGroup;
+			children = (
+				8261930BF05F126E74AFF6AD /* Resources */
+			);
+			name = PadResources;
+			sourceTree = "<group>";
+		};
+		B6CDB6E5D160E013280D3C68 /* SpektraPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpektraPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		00C45FD35CB0F9C5F764F070 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B6CDB6E5D160E013280D3C68
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ADCF10F76EBF2A74473E9DC4 = {
+			isa = PBXGroup;
+			children = (
+				869B34626A483A75D304C6CB,
+				3C3DC463728E9522781A7805,
+				6E206BF4A16CC067140F0164,
+				8CB4C5A2FD81B418CDD0B7BD,
+				00C45FD35CB0F9C5F764F070
+			);
+			sourceTree = "<group>";
+		};
+		BE0E1B85E7DA254402030AD4 /* PadCanvas.swift */ = {isa = PBXBuildFile; fileRef = 5E2F84C4098F72A518D2BD92; };
+		6EB8DDE8E49FDD96F0CC896A /* PadChrome.swift */ = {isa = PBXBuildFile; fileRef = 174B498B21C6FECFC28FF805; };
+		82E8D1D3F2057B11018F6B48 /* PadEditor.swift */ = {isa = PBXBuildFile; fileRef = 11981CA7BC7A4DFF3AEC04E3; };
+		2D906F427DEFE71978988D86 /* PadExport.swift */ = {isa = PBXBuildFile; fileRef = 26E3D52CA9DAA16A73FBEF90; };
+		D986F1A897F875F8F8C78ACC /* PadLibrary.swift */ = {isa = PBXBuildFile; fileRef = D68E447BF64B9C310B3A28A7; };
+		1E55A6B96E96BECCD56EF0D7 /* SpektraPadApp.swift */ = {isa = PBXBuildFile; fileRef = F946AF1CA27D09AB6D8931D4; };
+		6375D22DE0EAF5D25EF3BEE9 /* CineonLUT.swift */ = {isa = PBXBuildFile; fileRef = DB77486F6667B838E6E94001; };
+		E1B3CA47420EA0C93124CBA5 /* ColourManagement.swift */ = {isa = PBXBuildFile; fileRef = 3CC9377A61A47BF9746521A9; };
+		7E63FD473F95AF6A5346D1D7 /* CompareOverlay.swift */ = {isa = PBXBuildFile; fileRef = AE9DF7CC994C0A44902731CA; };
+		D227DCE765931D468AEEFF78 /* CropOverlay.swift */ = {isa = PBXBuildFile; fileRef = DA37ABB15B5AE3CB099586C8; };
+		6A62CC8E6EEC45357ACF5E26 /* MaskOverlay.swift */ = {isa = PBXBuildFile; fileRef = 46075402D0B9D2BA48F0BE15; };
+		F99C32CACC4DD6799A07491D /* PairOverlay.swift */ = {isa = PBXBuildFile; fileRef = B97DAB336698EA10C283D351; };
+		26DA50EA16BF722CD8027F1A /* Renderer.swift */ = {isa = PBXBuildFile; fileRef = B0ACA442889C10451541AE53; };
+		FE671346D2FD24DD52F7E10F /* Shaders.metal */ = {isa = PBXBuildFile; fileRef = 45A2278A553E7F675C711BDF; };
+		9FDF0221E5AE8DFB5F312B3A /* TextureStore.swift */ = {isa = PBXBuildFile; fileRef = 3596117B90D8381030422780; };
+		0159C89B3D3F30EBE62968C7 /* ViewportState.swift */ = {isa = PBXBuildFile; fileRef = 10D9844F361A8278E8F4736F; };
+		56A7F02CD921DA07CC0B136E /* BeforeAfterIcon.swift */ = {isa = PBXBuildFile; fileRef = 841BAB5289564CFBE151982F; };
+		CBC481AB32105E30E5D6954D /* ColorWheel.swift */ = {isa = PBXBuildFile; fileRef = 1967107938C5043791D8A984; };
+		A0BAFC6D0BC6D7A5411C7106 /* CurveEditor.swift */ = {isa = PBXBuildFile; fileRef = 3D5B5D58F46059ECDC219EEF; };
+		A1EE55C8098B1D241AF3D4C6 /* DetentSlider.swift */ = {isa = PBXBuildFile; fileRef = 949AA76515DB21F6736FB674; };
+		F0854538B5C40CC2914B7A91 /* FlowLayout.swift */ = {isa = PBXBuildFile; fileRef = 8FB03F4746C5B8ABA54EF57B; };
+		FA8A058AE304409C301166C1 /* FormatPicker.swift */ = {isa = PBXBuildFile; fileRef = 97C523570EE6096E0B873D38; };
+		02AAABE2CFD3ECA8238BC41F /* HistogramView.swift */ = {isa = PBXBuildFile; fileRef = 7BD55D2FF39E90B43F16B1EB; };
+		C9D1712467860359987B86FF /* PanelResize.swift */ = {isa = PBXBuildFile; fileRef = DBF56DA2B8AFC4212CB43DFB; };
+		63272394631FDDD18D09FA25 /* ScrubSlider.swift */ = {isa = PBXBuildFile; fileRef = 1EB09A5F6238A78E4E1967A8; };
+		45A6671C8A32FAE017E220AE /* SectionHeader.swift */ = {isa = PBXBuildFile; fileRef = 2A021B05AC73EF8147AB13FF; };
+		C199D949FA79B26AF6546136 /* SectionLayout.swift */ = {isa = PBXBuildFile; fileRef = 4AD525D185AC7442F4418DC7; };
+		888865E584479B14B321BC1F /* SegmentedSwitch.swift */ = {isa = PBXBuildFile; fileRef = D13DA36007DA0F6AF18B2DEC; };
+		F3968201A12DCC4EFDA91C19 /* WhiteBalanceRows.swift */ = {isa = PBXBuildFile; fileRef = B0930B2A9DBFDAEE68BE9A05; };
+		E11576C1E13067C62C63FCC3 /* DiagnosticBundle.swift */ = {isa = PBXBuildFile; fileRef = B2E908B866AB24915A3AAA25; };
+		516A71EDCB088A83D1F3B48C /* Diagnostics.swift */ = {isa = PBXBuildFile; fileRef = 859DB3AD0F3332C43D5669B7; };
+		BC71A7F6F572542C9750F467 /* DiskCacheStore.swift */ = {isa = PBXBuildFile; fileRef = ACE073FD4849B4B91D20027E; };
+		FCAA6E9BAA89577A362FB20B /* JobLog.swift */ = {isa = PBXBuildFile; fileRef = 87100CA218C1CD849E3E9907; };
+		830481CE233AA6B7F6DA9CD3 /* LogCore.swift */ = {isa = PBXBuildFile; fileRef = DC6094A340096404C0B27B9D; };
+		095F6C8384E22CFF89BEAB2B /* LogFile.swift */ = {isa = PBXBuildFile; fileRef = 560647851490C28386050AC5; };
+		CB92323F4A294B34868EBF64 /* MemoryArena.swift */ = {isa = PBXBuildFile; fileRef = 069D4AF71BED2CF673779A30; };
+		5305A047E50830792ED643E8 /* MemorySampler.swift */ = {isa = PBXBuildFile; fileRef = 76C83AD6875D028F8F91F77A; };
+		1B44B74E421A9924B4CBECC9 /* PrintWriteback.swift */ = {isa = PBXBuildFile; fileRef = 38005174C2E4036BCF6B3AEA; };
+		C9996FF1A99A486375975760 /* Exporter.swift */ = {isa = PBXBuildFile; fileRef = 6266D964C7958FF3E91F147A; };
+		DD6D54ABB51EE6607029DEBC /* ExportRecipe.swift */ = {isa = PBXBuildFile; fileRef = 42AB706553EB1C7B8DD638C9; };
+		D9BA9CD9C5C796907AD0F6F3 /* SoftProof.swift */ = {isa = PBXBuildFile; fileRef = DAC951270862F3EBF54E65A9; };
+		B563997DC7CD898DDBF6340F /* FramePipeline.swift */ = {isa = PBXBuildFile; fileRef = 4427487EA5994272B72FACF7; };
+		88549F1DA1370F4ACC50F0FF /* ImageDecoder.swift */ = {isa = PBXBuildFile; fileRef = 5C6EA4AC509736AE9587FCE5; };
+		D8FEB33EFF849270BD9132A9 /* Library.swift */ = {isa = PBXBuildFile; fileRef = 0213404ECEEF9008E1F1D085; };
+		16C0C5C54ED206BB9E34B526 /* PairComposer.swift */ = {isa = PBXBuildFile; fileRef = B580055306499DDD14A30404; };
+		50B5BA2AD98C527083A3F08A /* ThumbnailCache.swift */ = {isa = PBXBuildFile; fileRef = ED424614D98D9C201DAC2E61; };
+		7209390058767E5032A5B774 /* Localization.swift */ = {isa = PBXBuildFile; fileRef = 1CC1E55A9F47D4518AE30974; };
+		F124394DC3E2C1FD5A9E1EAB /* Strings.swift */ = {isa = PBXBuildFile; fileRef = A649699A5D48C90003A81CF9; };
+		74A8A8AD959C03CA10931225 /* Adjustments.swift */ = {isa = PBXBuildFile; fileRef = 757296FA0954F05C85A8DF36; };
+		F662F36104D62F94017BB70D /* CachePolicy.swift */ = {isa = PBXBuildFile; fileRef = 84E1A9EFD37DC4FCA386919E; };
+		43EF4247145B1C2A6F857D01 /* CurveMath.swift */ = {isa = PBXBuildFile; fileRef = 2C3EFD7B5DE8EA57D406BDBB; };
+		0F3E8DA8B0E434EE9E73FFD0 /* DecodeResidency.swift */ = {isa = PBXBuildFile; fileRef = 1FBA54A8DDF9F7C6003FE5D2; };
+		413F88B6BCF9724BF279C924 /* FeatureFlags.swift */ = {isa = PBXBuildFile; fileRef = 8D09A6A4DAA786A635404B54; };
+		088347AECB52455AB7F74F0A /* FilmEdge.swift */ = {isa = PBXBuildFile; fileRef = D4397AB5CB17C72C8113A0E3; };
+		9BFB916289E495E5330A33F8 /* Frame.swift */ = {isa = PBXBuildFile; fileRef = 1FD42235BD294C6BC7257371; };
+		A5C49F269B7FCE0D211D3FE8 /* FrameFraming.swift */ = {isa = PBXBuildFile; fileRef = 57946CF0E400CB6362643819; };
+		38667913E4B09BAB01E344C4 /* FrameOrder.swift */ = {isa = PBXBuildFile; fileRef = 5AE825B791EC7C8A097CABB6; };
+		9424C666E27C7415574DB925 /* Geometry.swift */ = {isa = PBXBuildFile; fileRef = B74BF4FE2C8992579B3BCA1E; };
+		99735F3CE3951EDF7013C117 /* HalfFramePair.swift */ = {isa = PBXBuildFile; fileRef = 283E17892DB9D0520A803A34; };
+		82319183F8605496E6B77218 /* Latitude.swift */ = {isa = PBXBuildFile; fileRef = D9A5D4FB130D7DA5C1364A10; };
+		FBB319E3ED8B7FA6F5970E52 /* Mask.swift */ = {isa = PBXBuildFile; fileRef = BD3FA299D7EB9C019C5EB676; };
+		C1999C2964380A09AA133A22 /* Params.swift */ = {isa = PBXBuildFile; fileRef = 2AFE54D96D2505F69D272CBC; };
+		AFC7F5444DDA2C9AF58F02D5 /* Session+FilmEdge.swift */ = {isa = PBXBuildFile; fileRef = DD7E26A3E79A78EBDD307CA5; };
+		0AFCC5D8DB9D9870F4143CDA /* Session.swift */ = {isa = PBXBuildFile; fileRef = 5E28E5289A5F9446065A3593; };
+		B9ED9FBC29CB44568818A2F3 /* SettingsClipboard.swift */ = {isa = PBXBuildFile; fileRef = 5D2036B1E86CE9C074686839; };
+		93EC68C9111538350F45E4BE /* Sidecar.swift */ = {isa = PBXBuildFile; fileRef = F41E0CBEE2514220F975C465; };
+		AAC733F2E6E49A6A66A2800F /* StockCatalog.swift */ = {isa = PBXBuildFile; fileRef = 54760792255D82D0FCE4FE92; };
+		A4E864790DA3A04B8C6E982C /* ToneMask.swift */ = {isa = PBXBuildFile; fileRef = 73CD38122A0624F1B181E883; };
+		9FC32D9997007C1D0BFA6699 /* CameraSection.swift */ = {isa = PBXBuildFile; fileRef = 831653CD6B716B9CB37E7445; };
+		BD95F522DC4B4433FD52C6CC /* ClipboardSection.swift */ = {isa = PBXBuildFile; fileRef = 927C1341FFF10E11B804120C; };
+		31754F3453ECF05E769FFD46 /* CropSection.swift */ = {isa = PBXBuildFile; fileRef = 773B97297FE5E4580B7CE70F; };
+		5966C25E0FFE9A73F954D790 /* DateBackSection.swift */ = {isa = PBXBuildFile; fileRef = 85BB0BF741B4E4A037E0A9AE; };
+		449B53382CB7B342E0C1C28C /* EnlargerSection.swift */ = {isa = PBXBuildFile; fileRef = B729AD2EB5E7519FE5499F61; };
+		30A751012539E5B7157A6BB5 /* FilmEdgeSection.swift */ = {isa = PBXBuildFile; fileRef = FA440EFCACD5AEE5DC29AC7B; };
+		C8FB96D13C0EFA51F9D24121 /* FilmSection.swift */ = {isa = PBXBuildFile; fileRef = D683EAE35F9582121B7AA62C; };
+		7A779EDC0A8AD3072A3C66DC /* LatitudeSection.swift */ = {isa = PBXBuildFile; fileRef = 24D43BD7B9CBB43662F0CD4F; };
+		3D409044F578F69A1C71064B /* MasksSection.swift */ = {isa = PBXBuildFile; fileRef = D8C62B445BB801BDB4827701; };
+		955979C3BED7799455F80461 /* NavigatorSection.swift */ = {isa = PBXBuildFile; fileRef = AAE77600C4DB8964A93036B8; };
+		D8525345345D17E357A530E6 /* PairSection.swift */ = {isa = PBXBuildFile; fileRef = 6F4A151AC41077EF596D04AE; };
+		B55CE9216A3EE4FD8278B795 /* ParameterSections.swift */ = {isa = PBXBuildFile; fileRef = 31604E276003EFAFDCC77A76; };
+		D90FEAE0509A514B914B0BC5 /* PrintProfileSection.swift */ = {isa = PBXBuildFile; fileRef = CBC3A4A2D1A91A9075EFE386; };
+		33E35FFCF2937944F57D5A20 /* RightSections.swift */ = {isa = PBXBuildFile; fileRef = 31CECD7A983BF62235F8F909; };
+		A2F388CA042E71C92AEFAE7C /* CropMaskedThumbnail.swift */ = {isa = PBXBuildFile; fileRef = 6B9FBE8501886FCAB3FC35BF; };
+		E426B80D0457DEEB1E34F755 /* Filmstrip.swift */ = {isa = PBXBuildFile; fileRef = E5F0DD211AC8BBD623882342; };
+		0E38810D779CE24C1BB12951 /* LeftPanel.swift */ = {isa = PBXBuildFile; fileRef = FBAC6D9C1B679D6F2364EDAC; };
+		76BE73E9E4EEBB5CD4D876BC /* RightPanel.swift */ = {isa = PBXBuildFile; fileRef = 464261EAAE2E1731D8109766; };
+		9EABB2F739C32B4A66A2AF8D /* EngineClient.swift */ = {isa = PBXBuildFile; fileRef = FE486EFAAFCD8BEF3A8D71D6; };
+		959D146DCCFE0793A930D37D /* EngineMessage.swift */ = {isa = PBXBuildFile; fileRef = 4C57EB1895B5E1FE0824358E; };
+		CD3375EB318BBA239D1D2330 /* Methods.swift */ = {isa = PBXBuildFile; fileRef = 2570445CCC905A6DD29D02F1; };
+		AFE852AF3E58DB8BBDCAB4B4 /* RenderScheduler.swift */ = {isa = PBXBuildFile; fileRef = 658A1D2EB50A0D8EB93C8A9F; };
+		EDA46EF8DFC042733AB117D9 /* Theme.swift */ = {isa = PBXBuildFile; fileRef = E9A855B54DCFEA59C4405355; };
+		73AE34546E135BB55EEA818B /* blob.cpp */ = {isa = PBXBuildFile; fileRef = CC3210C775C0FB9779F6838C; };
+		4D9DAA64496A9521BE9B9556 /* cam16.cpp */ = {isa = PBXBuildFile; fileRef = 215930583F367EC69222620A; };
+		21A4DD962FECB2F80539A1EB /* colour.cpp */ = {isa = PBXBuildFile; fileRef = 6DC1D74BE67AD1075040BAA8; };
+		391E62BA826CD7C0160D0160 /* curves.cpp */ = {isa = PBXBuildFile; fileRef = 77D9C5C0A25442DE67A9B1DE; };
+		64CF2C894EC0A9194BBA1441 /* digital_intermediate.cpp */ = {isa = PBXBuildFile; fileRef = EA8352F54C0DA5761E29342C; };
+		C5ADD5A43CE342ABA7F0FF7B /* hanatos.cpp */ = {isa = PBXBuildFile; fileRef = 9F7B85F45EBDF1CE3728F27D; };
+		6847EE21949D264C8DB264BB /* json.cpp */ = {isa = PBXBuildFile; fileRef = 9DFC1577C6F351347984BBA6; };
+		A4EE2BABE071D1758C6CE798 /* latitude_fit.cpp */ = {isa = PBXBuildFile; fileRef = 5F12CEA67BE4CABCBD8A194F; };
+		6223DD86261BF4464A4DA703 /* numeric.cpp */ = {isa = PBXBuildFile; fileRef = 0F90D106A52C5D6476740420; };
+		64D19D7186A3178B4826AE54 /* params.cpp */ = {isa = PBXBuildFile; fileRef = 2C61086C8EC6D0D28BE6D34A; };
+		74F9346576593D7BEB28FF4F /* print_lut.cpp */ = {isa = PBXBuildFile; fileRef = A5E364C2C3926AF21426B912; };
+		120045017BAEBCB4BCBBF9F8 /* printing.cpp */ = {isa = PBXBuildFile; fileRef = 9119F49C212A771C5930C93C; };
+		22D91020B6AA6FDC8F348C67 /* profile.cpp */ = {isa = PBXBuildFile; fileRef = 3C85018F7CFC2D41AC98B13B; };
+		AE4635C53F68BDA6EDE2AF33 /* setup_cache.cpp */ = {isa = PBXBuildFile; fileRef = 1D045DFCC1EDDCD6A7A24BAC; };
+		2F8278F91D72E9FB4C146224 /* spectral.cpp */ = {isa = PBXBuildFile; fileRef = 4B3FFEDB7D788D9CE9176200; };
+		5FCCAB9BF3BB19B1A98DCC77 /* metal_gpu.cpp */ = {isa = PBXBuildFile; fileRef = 07C47698192131C92F2CB924; };
+		04D80F6CD8830330AA5FC928 /* metal_impl.cpp */ = {isa = PBXBuildFile; fileRef = F6410F0A97C5410171E3B7A9; };
+		EBF0AF67F88388BD6300572F /* blur.cpp */ = {isa = PBXBuildFile; fileRef = C132A91149E2E1D76F4F8C2E; };
+		477E7D33E03A4C28BE3A3A39 /* contrast_mask.cpp */ = {isa = PBXBuildFile; fileRef = C8D24B2105DE16C5200297CC; };
+		7133A335FFED9083E88012BD /* engine.cpp */ = {isa = PBXBuildFile; fileRef = E2C17B8BF9B1AE15206603D4; };
+		29CB5EA0754E2D81ABDEFFAA /* overscan.cpp */ = {isa = PBXBuildFile; fileRef = 0690E24369EB1BEF328A5C19; };
+		37CF92664F5798F06EB0B88A /* pipeline.cpp */ = {isa = PBXBuildFile; fileRef = 05255F333E49F5B4B78CE005; };
+		406A211ED28B9D6F8F724A88 /* scene_latitude.cpp */ = {isa = PBXBuildFile; fileRef = 6B9E732572541F028D0B239A; };
+		184C45E627F74ED5F10EB2FB /* pad-sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE0E1B85E7DA254402030AD4 /* PadCanvas.swift */,
+				6EB8DDE8E49FDD96F0CC896A /* PadChrome.swift */,
+				82E8D1D3F2057B11018F6B48 /* PadEditor.swift */,
+				2D906F427DEFE71978988D86 /* PadExport.swift */,
+				D986F1A897F875F8F8C78ACC /* PadLibrary.swift */,
+				1E55A6B96E96BECCD56EF0D7 /* SpektraPadApp.swift */,
+				6375D22DE0EAF5D25EF3BEE9 /* CineonLUT.swift */,
+				E1B3CA47420EA0C93124CBA5 /* ColourManagement.swift */,
+				7E63FD473F95AF6A5346D1D7 /* CompareOverlay.swift */,
+				D227DCE765931D468AEEFF78 /* CropOverlay.swift */,
+				6A62CC8E6EEC45357ACF5E26 /* MaskOverlay.swift */,
+				F99C32CACC4DD6799A07491D /* PairOverlay.swift */,
+				26DA50EA16BF722CD8027F1A /* Renderer.swift */,
+				FE671346D2FD24DD52F7E10F /* Shaders.metal */,
+				9FDF0221E5AE8DFB5F312B3A /* TextureStore.swift */,
+				0159C89B3D3F30EBE62968C7 /* ViewportState.swift */,
+				56A7F02CD921DA07CC0B136E /* BeforeAfterIcon.swift */,
+				CBC481AB32105E30E5D6954D /* ColorWheel.swift */,
+				A0BAFC6D0BC6D7A5411C7106 /* CurveEditor.swift */,
+				A1EE55C8098B1D241AF3D4C6 /* DetentSlider.swift */,
+				F0854538B5C40CC2914B7A91 /* FlowLayout.swift */,
+				FA8A058AE304409C301166C1 /* FormatPicker.swift */,
+				02AAABE2CFD3ECA8238BC41F /* HistogramView.swift */,
+				C9D1712467860359987B86FF /* PanelResize.swift */,
+				63272394631FDDD18D09FA25 /* ScrubSlider.swift */,
+				45A6671C8A32FAE017E220AE /* SectionHeader.swift */,
+				C199D949FA79B26AF6546136 /* SectionLayout.swift */,
+				888865E584479B14B321BC1F /* SegmentedSwitch.swift */,
+				F3968201A12DCC4EFDA91C19 /* WhiteBalanceRows.swift */,
+				E11576C1E13067C62C63FCC3 /* DiagnosticBundle.swift */,
+				516A71EDCB088A83D1F3B48C /* Diagnostics.swift */,
+				BC71A7F6F572542C9750F467 /* DiskCacheStore.swift */,
+				FCAA6E9BAA89577A362FB20B /* JobLog.swift */,
+				830481CE233AA6B7F6DA9CD3 /* LogCore.swift */,
+				095F6C8384E22CFF89BEAB2B /* LogFile.swift */,
+				CB92323F4A294B34868EBF64 /* MemoryArena.swift */,
+				5305A047E50830792ED643E8 /* MemorySampler.swift */,
+				1B44B74E421A9924B4CBECC9 /* PrintWriteback.swift */,
+				C9996FF1A99A486375975760 /* Exporter.swift */,
+				DD6D54ABB51EE6607029DEBC /* ExportRecipe.swift */,
+				D9BA9CD9C5C796907AD0F6F3 /* SoftProof.swift */,
+				B563997DC7CD898DDBF6340F /* FramePipeline.swift */,
+				88549F1DA1370F4ACC50F0FF /* ImageDecoder.swift */,
+				D8FEB33EFF849270BD9132A9 /* Library.swift */,
+				16C0C5C54ED206BB9E34B526 /* PairComposer.swift */,
+				50B5BA2AD98C527083A3F08A /* ThumbnailCache.swift */,
+				7209390058767E5032A5B774 /* Localization.swift */,
+				F124394DC3E2C1FD5A9E1EAB /* Strings.swift */,
+				74A8A8AD959C03CA10931225 /* Adjustments.swift */,
+				F662F36104D62F94017BB70D /* CachePolicy.swift */,
+				43EF4247145B1C2A6F857D01 /* CurveMath.swift */,
+				0F3E8DA8B0E434EE9E73FFD0 /* DecodeResidency.swift */,
+				413F88B6BCF9724BF279C924 /* FeatureFlags.swift */,
+				088347AECB52455AB7F74F0A /* FilmEdge.swift */,
+				9BFB916289E495E5330A33F8 /* Frame.swift */,
+				A5C49F269B7FCE0D211D3FE8 /* FrameFraming.swift */,
+				38667913E4B09BAB01E344C4 /* FrameOrder.swift */,
+				9424C666E27C7415574DB925 /* Geometry.swift */,
+				99735F3CE3951EDF7013C117 /* HalfFramePair.swift */,
+				82319183F8605496E6B77218 /* Latitude.swift */,
+				FBB319E3ED8B7FA6F5970E52 /* Mask.swift */,
+				C1999C2964380A09AA133A22 /* Params.swift */,
+				AFC7F5444DDA2C9AF58F02D5 /* Session+FilmEdge.swift */,
+				0AFCC5D8DB9D9870F4143CDA /* Session.swift */,
+				B9ED9FBC29CB44568818A2F3 /* SettingsClipboard.swift */,
+				93EC68C9111538350F45E4BE /* Sidecar.swift */,
+				AAC733F2E6E49A6A66A2800F /* StockCatalog.swift */,
+				A4E864790DA3A04B8C6E982C /* ToneMask.swift */,
+				9FC32D9997007C1D0BFA6699 /* CameraSection.swift */,
+				BD95F522DC4B4433FD52C6CC /* ClipboardSection.swift */,
+				31754F3453ECF05E769FFD46 /* CropSection.swift */,
+				5966C25E0FFE9A73F954D790 /* DateBackSection.swift */,
+				449B53382CB7B342E0C1C28C /* EnlargerSection.swift */,
+				30A751012539E5B7157A6BB5 /* FilmEdgeSection.swift */,
+				C8FB96D13C0EFA51F9D24121 /* FilmSection.swift */,
+				7A779EDC0A8AD3072A3C66DC /* LatitudeSection.swift */,
+				3D409044F578F69A1C71064B /* MasksSection.swift */,
+				955979C3BED7799455F80461 /* NavigatorSection.swift */,
+				D8525345345D17E357A530E6 /* PairSection.swift */,
+				B55CE9216A3EE4FD8278B795 /* ParameterSections.swift */,
+				D90FEAE0509A514B914B0BC5 /* PrintProfileSection.swift */,
+				33E35FFCF2937944F57D5A20 /* RightSections.swift */,
+				A2F388CA042E71C92AEFAE7C /* CropMaskedThumbnail.swift */,
+				E426B80D0457DEEB1E34F755 /* Filmstrip.swift */,
+				0E38810D779CE24C1BB12951 /* LeftPanel.swift */,
+				76BE73E9E4EEBB5CD4D876BC /* RightPanel.swift */,
+				9EABB2F739C32B4A66A2AF8D /* EngineClient.swift */,
+				959D146DCCFE0793A930D37D /* EngineMessage.swift */,
+				CD3375EB318BBA239D1D2330 /* Methods.swift */,
+				AFE852AF3E58DB8BBDCAB4B4 /* RenderScheduler.swift */,
+				EDA46EF8DFC042733AB117D9 /* Theme.swift */,
+				73AE34546E135BB55EEA818B /* blob.cpp */,
+				4D9DAA64496A9521BE9B9556 /* cam16.cpp */,
+				21A4DD962FECB2F80539A1EB /* colour.cpp */,
+				391E62BA826CD7C0160D0160 /* curves.cpp */,
+				64CF2C894EC0A9194BBA1441 /* digital_intermediate.cpp */,
+				C5ADD5A43CE342ABA7F0FF7B /* hanatos.cpp */,
+				6847EE21949D264C8DB264BB /* json.cpp */,
+				A4EE2BABE071D1758C6CE798 /* latitude_fit.cpp */,
+				6223DD86261BF4464A4DA703 /* numeric.cpp */,
+				64D19D7186A3178B4826AE54 /* params.cpp */,
+				74F9346576593D7BEB28FF4F /* print_lut.cpp */,
+				120045017BAEBCB4BCBBF9F8 /* printing.cpp */,
+				22D91020B6AA6FDC8F348C67 /* profile.cpp */,
+				AE4635C53F68BDA6EDE2AF33 /* setup_cache.cpp */,
+				2F8278F91D72E9FB4C146224 /* spectral.cpp */,
+				5FCCAB9BF3BB19B1A98DCC77 /* metal_gpu.cpp */,
+				04D80F6CD8830330AA5FC928 /* metal_impl.cpp */,
+				EBF0AF67F88388BD6300572F /* blur.cpp */,
+				477E7D33E03A4C28BE3A3A39 /* contrast_mask.cpp */,
+				7133A335FFED9083E88012BD /* engine.cpp */,
+				29CB5EA0754E2D81ABDEFFAA /* overscan.cpp */,
+				37CF92664F5798F06EB0B88A /* pipeline.cpp */,
+				406A211ED28B9D6F8F724A88 /* scene_latitude.cpp */
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A18491C0337DEB529C0E2E6D /* pad-resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A31D3D9B595EAC8AE40E98F /* Assets.xcassets */ = {isa = PBXBuildFile; fileRef = 3375270C81BEA0B1B8896473; };
+		8EA1C43553B3978CA6DE5837 /* pad-assets */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A31D3D9B595EAC8AE40E98F /* Assets.xcassets */
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65C64152E100A7EA95723005 /* pad-frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20A1F637DF0C8F92FA52C1DD /* Check Pad resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pad resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/Tools/check-pad-resources.sh\"\n";
+		};
+		967DE5DAE8F9C3546488D3FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_ENTITLEMENTS = SpektraPad/SpektraPad.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../engine/include",
+					"$(SRCROOT)/../../engine/src",
+					"$(SRCROOT)/../../engine/src/core",
+					"$(SRCROOT)/../../engine/third_party/metal-cpp",
+				);
+				INFOPLIST_FILE = SpektraPad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-framework Metal -framework QuartzCore -framework CoreText -framework CoreGraphics -framework Accelerate";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanze.filmify.pad;
+				PRODUCT_NAME = SpektraPad;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Spektrafilm/Service/Spektrafilm-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+			};
+			name = Debug;
+		};
+		70A5F3AAC43D0790B57ED51A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_ENTITLEMENTS = SpektraPad/SpektraPad.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../engine/include",
+					"$(SRCROOT)/../../engine/src",
+					"$(SRCROOT)/../../engine/src/core",
+					"$(SRCROOT)/../../engine/third_party/metal-cpp",
+				);
+				INFOPLIST_FILE = SpektraPad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-framework Metal -framework QuartzCore -framework CoreText -framework CoreGraphics -framework Accelerate";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanze.filmify.pad;
+				PRODUCT_NAME = SpektraPad;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Spektrafilm/Service/Spektrafilm-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+			};
+			name = Release;
+		};
+		23746EFE221170E24101FE05 /* app */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				967DE5DAE8F9C3546488D3FD /* Debug */,
+				70A5F3AAC43D0790B57ED51A /* Release */
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29C7B681C8D62CBAC94D51C0 /* SpektraPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23746EFE221170E24101FE05;
+			buildPhases = (
+				20A1F637DF0C8F92FA52C1DD,
+				184C45E627F74ED5F10EB2FB,
+				65C64152E100A7EA95723005,
+				8EA1C43553B3978CA6DE5837,
+				A18491C0337DEB529C0E2E6D
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpektraPad;
+			productName = SpektraPad;
+			productReference = B6CDB6E5D160E013280D3C68;
+			productType = "com.apple.product-type.application";
+		};
+		855D4B0C75ECD556474FD8F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		4E74312DBBD620AE1CB5D771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		3D29D9F3A882C4202964FB56 /* project */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				855D4B0C75ECD556474FD8F5 /* Debug */,
+				4E74312DBBD620AE1CB5D771 /* Release */
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98F54143AB4E86B28C3AFEE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 3D29D9F3A882C4202964FB56;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base
+			);
+			mainGroup = ADCF10F76EBF2A74473E9DC4;
+			productRefGroup = 00C45FD35CB0F9C5F764F070;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				29C7B681C8D62CBAC94D51C0
+			);
+		};
+	};
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+}

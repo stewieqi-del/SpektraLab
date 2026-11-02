@@ -15,7 +15,6 @@
 //  come from ImageIO off the main actor and are replaced by the rendered print
 //  once a frame has been through the engine.
 
-import AppKit
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -39,6 +38,10 @@ struct Filmstrip: View {
                                 // canvas it goes into it (`PairDrop`).
                                 .onDrag {
                                     session.draggedFrame = frame.id
+                                    // `NSItemProvider` is Foundation, and
+                                    // `NSURL` bridges on both platforms, so
+                                    // the strip drags the same URL into the
+                                    // same `.onDrop` on iPad as on the Mac.
                                     return NSItemProvider(object: frame.id as NSURL)
                                 }
                                 .onDrop(of: [.fileURL], delegate: FrameReorder(session: session, target: frame.id))
@@ -48,11 +51,12 @@ struct Filmstrip: View {
                                 // so stacking one would fire both and a
                                 // ⌘-click would collapse the set as well.
                                 .onTapGesture {
-                                    session.click(frame.id,
-                                                  command: NSEvent.modifierFlags.contains(.command))
+                                    session.click(frame.id, command: PlatformInput.command)
                                 }
                                 .contextMenu {
+                                    #if canImport(AppKit)
                                     Button(L(.helpRevealInFinder)) { NSWorkspace.shared.activateFileViewerSelecting([frame.id]) }
+                                    #endif
                                     if HalfFramePair.isPair(frame.id) {
                                         Button(L("Delete Pair", zh: "删除半格拼接")) { session.deletePair(frame.id) }
                                     } else {

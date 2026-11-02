@@ -19,7 +19,12 @@
 //  a DI is `<stem>_DI.tif`, so it can share a folder with a finished TIFF
 //  (`ExportRecipe.destinationPath`).
 
+//  `AppKit` is not used here (the writer is ImageIO); it was carried by the
+//  neighbouring files in the folder. Kept conditional so the same writer is
+//  the iPad's.
+#if canImport(AppKit)
 import AppKit
+#endif
 import Foundation
 import ImageIO
 import Metal

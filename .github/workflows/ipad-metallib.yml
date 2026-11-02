@@ -1,0 +1,96 @@
+name: iPad metal libraries
+
+# The one step of the iPad build that needs Apple's toolchain.
+#
+# `metal` is a Mach-O binary, so the Windows + WSL route that compiles the app
+# (`Package.swift` + `xtool.yml`) cannot produce either library: it stages
+# placeholders and `Tools/build-ipad.sh` refuses to package without the real
+# ones. This job is therefore the only Apple-hosted step in an otherwise
+# Mac-free build, and it publishes its output where a checkout can fetch it
+# without a token — release assets on the `ipad-metallib` tag.
+#
+# Both libraries have to be *iOS* libraries: a macOS metallib is a different
+# platform stamp and fails at `newLibraryWithURL` on launch, not at build time.
+# The two scripts each verify the stamp with `metal-readobj`.
+on:
+  workflow_dispatch:
+  push:
+    branches: [ipad-port]
+    paths:
+      - "engine/src/shaders/**"
+      - "engine/build.sh"
+      - "modern_UI/Spektrafilm/Spektrafilm/Canvas/Shaders.metal"
+      - "Tools/build-metallib.sh"
+      - ".github/workflows/ipad-metallib.yml"
+
+concurrency:
+  group: ipad-metallib-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  metallib:
+    runs-on: macos-15
+    env:
+      TAG: ipad-metallib
+      ENGINE_LIB: modern_UI/Spektrafilm/SpektraPadResources/Resources/engine/spektrafilm.metallib
+      CANVAS_LIB: modern_UI/Spektrafilm/SpektraPadResources/default.metallib
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Toolchain
+        run: |
+          xcodebuild -version
+          xcrun -sdk iphoneos metal --version
+
+      # The engine kernels keep the safe-math pair: under fast math `exp` and
+      # the fma path drift past the float32 bar silently, and `spk_math_probe`
+      # then refuses to start the engine.
+      - name: Engine kernels (iOS 17)
+        run: bash engine/build.sh ipad
+
+      # The canvas shader is the opposite case: the Mac target sets
+      # `MTL_FAST_MATH = YES` for it, so its iOS twin is compiled fast to keep
+      # the two canvases identical.
+      - name: Canvas library (iOS 17)
+        run: bash Tools/build-metallib.sh
+
+      - name: Show the stamps
+        run: |
+          set -euo pipefail
+          for f in "$ENGINE_LIB" "$CANVAS_LIB"; do
+            echo "== $f"
+            ls -l "$f"
+            xcrun -sdk iphoneos metal-readobj --file-headers "$f" |
+              grep -E "Platform(Major|Minor)|Version" || true
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ipad-metallib
+          if-no-files-found: error
+          retention-days: 90
+          path: |
+            modern_UI/Spektrafilm/SpektraPadResources/Resources/engine/spektrafilm.metallib
+            modern_UI/Spektrafilm/SpektraPadResources/default.metallib
+
+      # Flat names on purpose: both files are copied into different directories
+      # of the app bundle, so the downloader places each by hand anyway, and a
+      # flat asset is what `curl -LO` gets right.
+      - name: Publish as release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          cp "$ENGINE_LIB" out/spektrafilm.metallib
+          cp "$CANVAS_LIB" out/default.metallib
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" \
+              --title "iPad metal libraries" \
+              --notes "iOS libraries for SpektraPad. Rebuilt from $GITHUB_SHA by \`.github/workflows/ipad-metallib.yml\`; download \`spektrafilm.metallib\` and \`default.metallib\` and let \`Tools/build-ipad.sh\` place them."
+          fi
+          gh release upload "$TAG" out/spektrafilm.metallib out/default.metallib --clobber

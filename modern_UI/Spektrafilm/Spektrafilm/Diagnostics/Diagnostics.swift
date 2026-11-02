@@ -22,7 +22,11 @@
 //  frame will cost, measured against what is free, with a warning the user can
 //  override rather than a render that silently starts swapping.
 
+#if canImport(AppKit)
 import AppKit
+#else
+import UIKit
+#endif
 import Foundation
 import Metal
 import Observation
@@ -629,8 +633,15 @@ final class Diagnostics {
     }
 
     func revealLogsInFinder() {
+        #if canImport(AppKit)
         let target = log.sessionFile ?? logDirectory
         NSWorkspace.shared.activateFileViewerSelecting([target])
+        #else
+        // No Finder on iPad. The log directory is inside the app container,
+        // which the pad's About/Settings sheet exposes through the Files app
+        // (`UIFileSharingEnabled`), so there is nothing to reveal and nowhere
+        // to reveal it to.
+        #endif
     }
 
     /// Save the diagnostic bundle (§7). Off the main actor: it reads up to five

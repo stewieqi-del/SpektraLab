@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Nothing, and the emptiness is the point — the same argument the Mac's
+	     Spektrafilm.entitlements makes, for the same reason.
+
+	     Everything this app reads arrives through the document picker or a
+	     drag from Files, which hands out security-scoped URLs
+	     (`SecurityScopedURLs` in PadLibrary.swift holds them for the life of
+	     the process). Nothing here needs iCloud, push, App Groups, HealthKit
+	     or any of the other capabilities that would turn this file into a list
+	     of holes in the sandbox.
+
+	     One entitlement is deliberately *not* written: `com.apple.developer
+	     .team-identifier` and the associated-domains family are provisioning
+	     concerns, and a signature that needs them is a distribution decision,
+	     not a port decision. Debug and development builds sign with the
+	     automatic profile and `get-task-allow` is added by the toolchain. -->
+</dict>
+</plist>

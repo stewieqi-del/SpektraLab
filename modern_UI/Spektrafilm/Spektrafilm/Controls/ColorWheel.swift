@@ -17,7 +17,8 @@
 //  .swift`), so all of this is arrangement and interaction over the state that
 //  already exists.
 
-import AppKit
+//  Only `Color.interpolate` ever needed AppKit, and it now goes through the
+//  shared `srgbComponents` rather than naming a platform colour class.
 import SwiftUI
 
 struct ColorBalanceEditor: View {
@@ -559,14 +560,16 @@ private extension Color {
     /// does: the value is linear in the arc's parameter, so the colour should
     /// be too.
     func interpolate(to other: Color, amount: Double) -> Color {
-        let a = NSColor(self).usingColorSpace(.sRGB) ?? .gray
-        let b = NSColor(other).usingColorSpace(.sRGB) ?? .gray
+        // `srgbComponents` is the one place the platform's colour class is
+        // named — `NSColor` here, `UIColor` on iOS, same four numbers.
+        let a = srgbComponents(of: self)
+        let b = srgbComponents(of: other)
         let t = CGFloat(amount.clamped(to: 0...1))
         return Color(.sRGB,
-                     red: a.redComponent + (b.redComponent - a.redComponent) * t,
-                     green: a.greenComponent + (b.greenComponent - a.greenComponent) * t,
-                     blue: a.blueComponent + (b.blueComponent - a.blueComponent) * t,
-                     opacity: a.alphaComponent + (b.alphaComponent - a.alphaComponent) * t)
+                     red: a.red + (b.red - a.red) * t,
+                     green: a.green + (b.green - a.green) * t,
+                     blue: a.blue + (b.blue - a.blue) * t,
+                     opacity: a.alpha + (b.alpha - a.alpha) * t)
     }
 }
 

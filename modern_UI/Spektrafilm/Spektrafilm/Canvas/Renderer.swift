@@ -887,7 +887,7 @@ final class Renderer: NSObject {
         // drawn from — both are the working space, so the split compares two
         // renderings and not two colour spaces.
         let before = original ?? shown
-        let bs = Float(view.window?.backingScaleFactor ?? viewport.backingScale)
+        let bs = Float(Self.backingScale(of: view, fallback: viewport.backingScale))
         var u = canvasUniforms(shown: shown, viewportSize: view.drawableSize, backingScale: CGFloat(bs))
         // The timestamp is not decoration: "the canvas twitches" is a question
         // about *when* frames reach the screen, and a log of states without
@@ -901,7 +901,7 @@ final class Renderer: NSObject {
                    view.drawableSize.width, view.drawableSize.height,
                    view.bounds.width, view.bounds.height,
                    viewport.viewport.width, viewport.viewport.height,
-                   view.window?.backingScaleFactor ?? -1))
+                   Self.backingScale(of: view, fallback: -1)))
         rpd.colorAttachments[0].loadAction = .clear
         rpd.colorAttachments[0].clearColor = MTLClearColor(red: Double(u.surroundGray), green: Double(u.surroundGray), blue: Double(u.surroundGray), alpha: 1)
         guard let enc = cb.makeRenderCommandEncoder(descriptor: rpd) else { return }
@@ -919,6 +919,22 @@ final class Renderer: NSObject {
         enc.endEncoding()
         cb.present(drawable)
         cb.commit()
+    }
+
+    /// Device pixels per point for the view being drawn into.
+    ///
+    /// On macOS a view's scale belongs to the **window** it is in: the same
+    /// `MTKView` moves between a Retina display and a projector, and
+    /// `NSScreen` is what knows. iOS has one screen and the view carries the
+    /// answer itself, so `contentScaleFactor` is read there. The fallback
+    /// exists for a view that is not in a window yet — the first draw of a
+    /// canvas that has been measured but not attached.
+    private static func backingScale(of view: MTKView, fallback: CGFloat) -> CGFloat {
+        #if canImport(AppKit)
+        view.window?.backingScaleFactor ?? fallback
+        #else
+        view.contentScaleFactor
+        #endif
     }
 
     // MARK: offscreen (export, snapshot, tests)

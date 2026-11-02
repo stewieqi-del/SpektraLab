@@ -6,6 +6,7 @@
 #   engine/build.sh dylib      the shared library the ctypes parity harness loads
 #   engine/build.sh tests      the setup/schema dump drivers
 #   engine/build.sh metallib   just the kernels
+#   engine/build.sh ipad       the same kernels for iPadOS + the Pad bundle's resources
 #
 # bash, and arrays throughout, because the repository path contains a space
 # ("Summer 2026") and every unquoted expansion of a path list is a build that
@@ -168,12 +169,99 @@ bundle_resources() {
   echo "bundle     -> $app ($size)"
 }
 
+# ---- iPadOS -------------------------------------------------------------
+#
+# The Pad target compiles the same C++ through `Tools/gen-ipad-project.py`, so
+# nothing here produces a library for it: the two things it needs that the Mac
+# does not are a metallib stamped for the iOS deployment target -- a macOS
+# metallib does not load there, and the failure is at `newLibraryWithURL` at
+# launch rather than at build time -- and its own resource folder, because the
+# app that ships it is a different bundle with a different `Resources/`.
+#
+# The floor is iPadOS 17 for `@Observable` (`Tools/gen-ipad-project.py` says so
+# too). The Pad has no long tail of older devices to carry, so the floor is the
+# Swift runtime the shared model is written against.
+IOS_MIN=17.0
+ios_target=(-target "arm64-apple-ios$IOS_MIN")
+
+check_ios_metallib_target() {
+  local major
+  major=$(xcrun -sdk iphoneos metal-readobj --file-headers "$1" | awk '/PlatformMajor:/ {print $2; exit}')
+  if [[ "$major" != "${IOS_MIN%%.*}" ]]; then
+    echo "build.sh: $1 targets iOS $major, not $IOS_MIN -- it would not load on older iPads" >&2
+    exit 1
+  fi
+}
+
+build_metallib_ios() {
+  local airs=() m air
+  mkdir -p "$out/ios"
+  shopt -s nullglob
+  for m in "$here"/src/shaders/*.metal; do
+    air="$out/ios/$(basename "$m" .metal).air"
+    xcrun -sdk iphoneos metal "${math_flags[@]}" "${ios_target[@]}" -Werror -c "$m" -o "$air"
+    airs+=("$air")
+  done
+  shopt -u nullglob
+  if [[ ${#airs[@]} -eq 0 ]]; then echo "no shaders yet"; return 0; fi
+  xcrun -sdk iphoneos metallib "${airs[@]}" -o "$out/ios/spektrafilm.metallib"
+  check_ios_metallib_target "$out/ios/spektrafilm.metallib"
+  echo "metallib   -> $out/ios/spektrafilm.metallib (iOS $IOS_MIN)"
+}
+
+# Stage everything the engine opens at run time, plus the three resources the
+# *app* reads from its own bundle. The macOS target gets those by shipping
+# `Spektrafilm/Resources/` as a folder reference; the Pad cannot reference that
+# folder without also dragging in the whole Mac app, so they are copied here and
+# the Pad's folder reference is the parent.
+#
+# The layout is the part to keep right: the folder reference is named
+# `Resources` and is copied to the bundle root, so `Bundle.main` answers
+# `Resources/engine/spektrafilm_constants.bin` -- the same path
+# `EngineClient.defaultResources()` looks for, and the same one the Mac gets
+# under `Contents/Resources`.
+pad_bundle_resources() {
+  local pad="$here/../modern_UI/Spektrafilm/SpektraPadResources/Resources"
+  local app="$pad/engine"
+  if [[ ! -f "$here/resources/spektrafilm_constants.bin" ]]; then
+    echo "build.sh: engine/resources is missing, and it is a tracked directory." >&2
+    echo "    Restore it:  git checkout -- engine/resources" >&2
+    exit 1
+  fi
+  mkdir -p "$app" "$pad"
+  # The macOS metallib is excluded rather than overwritten after the copy: a
+  # checkout that has also run `bundle` leaves one here, and an iPad app
+  # carrying it would fail at load with a platform mismatch that looks like a
+  # corrupt resource.
+  rsync -a --delete --exclude 'spektrafilm.metallib' "$here/resources/" "$app/"
+  cp "$out/ios/spektrafilm.metallib" "$app/spektrafilm.metallib"
+  if [[ -d "$here/resources_product/profiles" ]]; then
+    cp "$here/resources_product/profiles/"*.json "$app/profiles/"
+    cp "$here/resources_product/NOTICE.md" "$app/PRODUCT_PROFILES_NOTICE.md"
+  fi
+  local src="$here/../modern_UI/Spektrafilm/Spektrafilm/Resources"
+  cp "$src/StockCatalog.json" "$pad/"
+  rsync -a --delete "$src/FilmCovers/" "$pad/FilmCovers/"
+  rsync -a --delete "$src/Licenses/" "$pad/Licenses/"
+  # The two DI-view `.cube` files travel beside an exported Digital
+  # Intermediate (`CineonLUT.copyBeside`). Leaving them out would make DI export
+  # fail on the Pad only -- the kind of difference nobody finds until they use
+  # it, on the device, with no Mac to compare against.
+  rsync -a --delete "$src/DI/" "$pad/DI/"
+  local size
+  size=$(du -sh "$pad" | cut -f1)
+  echo "pad bundle -> $pad ($size)"
+}
+
+ipad() { build_metallib_ios; pad_bundle_resources; }
+
 case "${1:-all}" in
   metallib) build_metallib ;;
   lib)      build_metallib; build_lib ;;
   dylib)    build_metallib; build_dylib ;;
   tests)    build_tests ;;
   bundle)   build_metallib; bundle_resources ;;
+  ipad)     ipad ;;
   all)      build_metallib; build_lib; build_dylib; build_tests; bundle_resources ;;
-  *) echo "usage: build.sh [all|lib|dylib|tests|metallib|bundle]" >&2; exit 2 ;;
+  *) echo "usage: build.sh [all|lib|dylib|tests|metallib|bundle|ipad]" >&2; exit 2 ;;
 esac

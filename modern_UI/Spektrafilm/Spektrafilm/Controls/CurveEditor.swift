@@ -9,7 +9,9 @@
 //  question — `Curve.index(near:in:)` — so a point you can grab is a point you
 //  can right-click.
 
+#if canImport(AppKit)
 import AppKit
+#endif
 import SwiftUI
 
 struct CurveEditor: View {
@@ -91,13 +93,27 @@ struct CurveEditor: View {
                     }
                 }
                 // Above the canvas, and the only thing on the plot that takes a
-                // right-click (see `PointContextMenu`).
+                // right-click (see `PointContextMenu`). A menu is a pointer
+                // gesture, so the iPad has none: there, a point is removed by
+                // dragging it outside the plot, which is the same rule the
+                // drag already applies and is documented at the top of the
+                // file.
+                //
+                // The two arms are whole expressions on purpose: a `#if` that
+                // compiles away to nothing inside a ViewBuilder leaves the
+                // `.frame` that follows with no view to modify ("reference to
+                // member 'frame' cannot be resolved").
+                #if canImport(AppKit)
                 PointContextMenu(size: size, curve: curve) { i in
                     var c = curve
                     c.remove(i)
                     setCurve(c)
                 }
                 .frame(width: size.width, height: size.height)
+                #else
+                Color.clear
+                    .frame(width: size.width, height: size.height)
+                #endif
             }
             .contentShape(Rectangle())
             .gesture(
@@ -126,12 +142,10 @@ struct CurveEditor: View {
                     .onEnded { _ in dragging = nil }
             )
             .simultaneousGesture(TapGesture(count: 2).onEnded { setCurve(.identity) })
-            .onContinuousHover { phase in
-                switch phase {
-                case .active(let p): hover = unitClamped(p, size)
-                case .ended: hover = nil
-                }
-            }
+            // The hover readout is a pointer affordance. iOS reports no
+            // pointer position between touches, so `pointHover` is nothing
+            // there and the guide line simply follows the drag.
+            .pointHover { p in hover = p.map { unitClamped($0, size) } }
         }
     }
 
@@ -168,6 +182,9 @@ struct CurveEditor: View {
     /// click, which is what "a second layer of UI" means on this platform, and
     /// greys the item out for the two points that cannot be deleted rather than
     /// accepting the click and doing nothing.
+    ///
+    /// AppKit only — it is an `NSView`, and iOS has no right-click to route.
+    #if canImport(AppKit)
     private struct PointContextMenu: NSViewRepresentable {
         let size: CGSize
         let curve: Curve
@@ -243,6 +260,7 @@ struct CurveEditor: View {
             }
         }
     }
+    #endif
 
     private var readout: some View {
         HStack(spacing: 16) {

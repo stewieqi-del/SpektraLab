@@ -79,7 +79,7 @@ struct PillMenu<T: Hashable>: View {
                 .background(plate, in: Capsule())
                 .contentShape(Capsule())
             }
-            .menuStyle(.button)
+            .menuStyleButton()
             .buttonStyle(.plain)
             .menuIndicator(.hidden)
             .fixedSize(horizontal: false, vertical: false)
@@ -160,7 +160,7 @@ struct UnitField: View {
                 .background(Theme.pill, in: Capsule())
                 .contentShape(Capsule())
             }
-            .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
+            .menuStyleButton().buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
             }
             .frame(width: Theme.Metric.pickerWidth)
         }

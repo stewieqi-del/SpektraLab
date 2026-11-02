@@ -193,6 +193,10 @@ struct TrafficLightAlignment: NSViewRepresentable {
 
     /// Width of the whole button row, from the close button's leading edge to
     /// the zoom button's trailing edge. Two gaps plus one button.
-    static var rowWidth: CGFloat { spacing * 2 + buttonDiameter }
+    ///
+    /// The value lives in `Theme.Metric` because the theme is compiled into
+    /// the iPad target too, where this type does not exist; this keeps the
+    /// AppKit side reading the one definition rather than repeating it.
+    static var rowWidth: CGFloat { Theme.Metric.trafficLightRowWidth }
     static let buttonDiameter: CGFloat = 14
 }

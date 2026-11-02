@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The bundle identity. `GENERATE_INFOPLIST_FILE = NO` in
+	     Tools/gen-ipad-project.py, so every key the system reads is written
+	     out here rather than synthesised from build settings — which is what
+	     makes the document-sharing keys below visible in the file rather than
+	     buried in a setting nobody greps for.
+
+	     The Mac's Info.plist is the sibling of this file and carries a much
+	     larger set: the `NS*UsageDescription` keys, the CLI/MCP service type,
+	     and the URL scheme the agent's workspace uses. None of that has an
+	     iOS meaning — there is no subprocess, no shell and no MCP client on
+	     iPadOS — so they are absent instead of copied and inert. -->
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>SpektraPad</string>
+	<key>CFBundleDisplayName</key>
+	<string>SpektraPad</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.photography</string>
+
+	<!-- iPadOS 17 requires a launch screen dictionary for a window to be
+	     sized correctly; an empty one is the documented "no design" answer and
+	     is what a canvas app wants — the first frame is the photograph, not a
+	     logo. -->
+	<key>UILaunchScreen</key>
+	<dict/>
+
+	<!-- The app's Documents folder is where exports go, and Files has to be
+	     able to see it: without these two keys the export sheet writes files
+	     the user can only reach through the share sheet. This is the whole
+	     reason `PadExport` can skip a destination picker. -->
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+
+	<!-- iPad: every orientation, because a RAW and a crop both want the axis
+	     that fits them, and the foldable's open state is closer to landscape
+	     than to portrait. Portrait upside down is included for a stand on a
+	     desk.
+	     iPhone: the same set, because the canvas is the point and a landscape
+	     phone is a real way to look at it. -->
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+
+	<!-- A hardware keyboard and a trackpad are ordinary accessories for an
+	     iPad, and the canvas answers arrow keys, escape and return. Without
+	     this key UIKit routes those presses through the text-input stack
+	     first and the canvas only sees what nothing else claimed. -->
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+
+	<!-- The file types the app claims, so a RAW in Files offers "Open in
+	     SpektraPad" from its share sheet and a document picker filters to
+	     things the app can actually decode. The list matches
+	     `ImageDecoder.openable`; a type here that the decoder refuses would be
+	     a promise the app cannot keep. -->
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Photograph</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.image</string>
+				<string>public.camera-raw-image</string>
+				<string>public.tiff</string>
+				<string>public.png</string>
+				<string>public.jpeg</string>
+				<string>public.heic</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

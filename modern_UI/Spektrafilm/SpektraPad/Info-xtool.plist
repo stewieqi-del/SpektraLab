@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Info.plist for the xtool route (Windows + WSL -> device). It exists
+	     because `xtool.yml` points at one document and there is no Xcode to
+	     substitute build settings: `SpektraPad/Info.plist` is written for the
+	     generated Xcode project and still carries $(EXECUTABLE_NAME),
+	     $(PRODUCT_BUNDLE_IDENTIFIER), $(MARKETING_VERSION) and
+	     $(CURRENT_PROJECT_VERSION), none of which expand here.
+
+	     The keys below are the subset that changes behaviour. Bundle identity
+	     (CFBundleIdentifier, CFBundleExecutable) and MinimumOSVersion are added
+	     by xtool when it assembles the bundle; `UIDeviceFamily` is not, and
+	     without it the app installs as an iPhone-only binary. -->
+	<key>CFBundleDisplayName</key>
+	<string>SpektraPad</string>
+	<key>CFBundleName</key>
+	<string>SpektraPad</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.photography</string>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Photograph</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.image</string>
+				<string>public.camera-raw-image</string>
+				<string>public.tiff</string>
+				<string>public.png</string>
+				<string>public.jpeg</string>
+				<string>public.heic</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

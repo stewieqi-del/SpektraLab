@@ -134,7 +134,7 @@ struct SectionHeader: View {
                 Menu { menu() } label: {
                     EllipsisGlyph().frame(width: 15, height: 3).padding(8).contentShape(Rectangle())
                 }
-                .menuStyle(.button)
+                .menuStyleButton()
                 .buttonStyle(.plain)
                 .menuIndicator(.hidden)
                 .fixedSize()

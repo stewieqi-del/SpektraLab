@@ -39,6 +39,14 @@
 
 import Foundation
 import Metal
+// The Xcode targets see the C ABI through
+// `Spektrafilm-Bridging-Header.h`; a SwiftPM build (the xtool/iPad route)
+// has no bridging header and sees it as a Swift module instead. Guarding on
+// the module means this file compiles unchanged in both worlds — and this is
+// the only file in the app that calls `spk_*` directly.
+#if canImport(SpekEngine)
+import SpekEngine
+#endif
 
 /// One render's result: the reply the frontend already knows how to read, plus
 /// the texture it used to have to load from a file.
